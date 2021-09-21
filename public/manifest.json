@@ -1,0 +1,8 @@
+{
+  "short_name": "Hunter Cinema App",
+  "name": "Hunter Cinema App by: Hernan Demorizi Ureña (GitHub: hernanreiq)",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
