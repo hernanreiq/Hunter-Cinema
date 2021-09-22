@@ -8,13 +8,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 /*GENERAL*/
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6,  button, input, select, textarea {
   font-family: 'Lato', sans-serif;
   letter-spacing: 0.7px;
 }
 p, a, span, b, i, strong {
   font-family: 'Poppins', sans-serif;
   letter-spacing: 0.7px;
+}
+input {
+  color: #000000;
 }
 .section-color-1 {
   background-color: #792626;
