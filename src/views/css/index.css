@@ -40,3 +40,7 @@ nav .navbar-brand {
 nav .nav-link {
   font-weight: bold;
 }
+/*FOOTER*/
+a.firma:hover {
+  color: gold !important;
+}
