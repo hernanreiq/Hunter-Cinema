@@ -1,13 +1,12 @@
 import React, { Component } from "react";
+import LatestUpdates from "./partials/latest-updates";
 
 class Index extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <React.Fragment>
                 <main>
-                    <div className="container">
-                        
-                    </div>
+                    <LatestUpdates />
                 </main>
             </React.Fragment>
         )

@@ -7,7 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #333333;
 }
-/*ESTILOS DE LA BARRA DE NAVEGACION*/
+/*GENERAL*/
+.section-color-1 {
+  background-color: #fff2cc;
+}
+.section-color-2 {
+  background-color: #333333;
+}
+/*BARRA DE NAVEGACION*/
 nav {
   background-color: #fff2cc;
 }
@@ -17,4 +24,8 @@ nav .navbar-brand {
 }
 nav .nav-link {
   font-weight: bold;
+}
+/*ÚLTIMAS ACTUALIZACIONES*/
+.text-vanilla {
+  color: #fff2cc;
 }
