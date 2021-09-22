@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LatestUpdates from "./partials/latest-updates";
+import ActorFinder from "./partials/actor-finder";
 
 class Index extends Component {
     render() {
@@ -7,6 +8,7 @@ class Index extends Component {
             <React.Fragment>
                 <main>
                     <LatestUpdates />
+                    <ActorFinder />
                 </main>
             </React.Fragment>
         )

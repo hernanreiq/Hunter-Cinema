@@ -14,6 +14,12 @@ body {
 .section-color-2 {
   background-color: #333333;
 }
+.text-vanilla {
+  color: #fff2cc;
+}
+.text-dark-custom {
+  color: #333333;
+}
 /*BARRA DE NAVEGACION*/
 nav {
   background-color: #fff2cc;
@@ -24,8 +30,4 @@ nav .navbar-brand {
 }
 nav .nav-link {
   font-weight: bold;
-}
-/*ÚLTIMAS ACTUALIZACIONES*/
-.text-vanilla {
-  color: #fff2cc;
 }
