@@ -9,21 +9,30 @@ body {
 }
 /*GENERAL*/
 .section-color-1 {
-  background-color: #fff2cc;
+  background-color: #792626;
+  background: -webkit-linear-gradient(to right, #2c1313, #792626, #2c1313);  
+  background: linear-gradient(to right, #2c1313, #792626, #2c1313);
 }
 .section-color-2 {
   background-color: #333333;
+  background: -webkit-linear-gradient(to right, #333333, #1d1d1d, #333333);  
+  background: linear-gradient(to right, #333333, #1d1d1d, #333333);
 }
-.text-vanilla {
-  color: #fff2cc;
+div.white-division {
+  background-color: #ffffff;
+  background: -webkit-linear-gradient(to right, #2c1313, #ffffff, #2c1313);  
+  background: linear-gradient(to right, #2c1313, #ffffff, #2c1313);
+  height: 3px;
 }
-.text-dark-custom {
-  color: #333333;
+.btn-red-wine {
+  background-color: #792626;
+  color: #ffffff;
+}
+.btn-red-wine:hover {
+  background-color: #2c1313;
+  color: #ffffff;
 }
 /*BARRA DE NAVEGACION*/
-nav {
-  background-color: #fff2cc;
-}
 nav .navbar-brand {
   font-weight: bold;
   font-style: italic;
