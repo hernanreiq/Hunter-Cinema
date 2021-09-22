@@ -52,3 +52,13 @@ nav .nav-link {
 a.firma:hover {
   color: gold !important;
 }
+/*COLORES CRUD*/
+.bg-crud-1 {
+  background-color: #2c1313;
+}
+.bg-crud-2 {
+  background-color: rgb(0, 64, 116);
+}
+.bg-crud-3 {
+  background-color: rgb(25, 102, 25);
+}
