@@ -6,7 +6,8 @@ const ActorModel = Schema({
     films: {type: Array},
     dateOfBirth: {type: Date},
     gender: {type: String},
-    photo: {type: String}
+    photo: {type: String},
+    createdAt: {type: Date}
 });
 
 module.exports = mongoose.model('actor', ActorModel);
