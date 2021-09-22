@@ -27,7 +27,7 @@ const ActorController = {
             res.json({ message: "Este actor ya fue registrado antes", error: true });
         }
     },
-    updateActor: async (req, res) => {
+    updateActor: (req, res) => {
         const { name, dateOfBirth, gender } = req.body;
         const idActor = req.params.id;
         ActorModel.findById(idActor, async (err, actor) => {
@@ -44,6 +44,20 @@ const ActorController = {
                 res.json({ message: "Los datos del actor fueron actualizados con éxito!", error: false });
             } else if (err) {
                 res.json({ message: "No se puede actualizar un actor que no existe", error: true });
+            } else {
+                res.json({ message: "No se puede actualizar un actor que no existe", error: true });
+            }
+        });
+    },
+    deleteActor: (req, res) => {
+        const idActor = req.params.id;
+        ActorModel.findByIdAndRemove(idActor, (err, actor) => {
+            if (actor) {
+                res.json({ message: "Actor eliminado con éxito!", error: false });
+            } else if (err) {
+                res.json({ message: "No se pudo eliminar este actor", error: true });
+            } else {
+                res.json({ message: "No se pudo eliminar este actor", error: true });
             }
         });
     }

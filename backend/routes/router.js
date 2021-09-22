@@ -7,5 +7,6 @@ const ActorController = require("../controllers/actor");
 route.get('/api/actors/updated', ActorController.updatedActors);
 route.post('/api/actors/create', ActorController.createActor);
 route.put('/api/actors/update/:id', ActorController.updateActor);
+route.delete('/api/actors/delete/:id', ActorController.deleteActor);
 
 module.exports = route;
