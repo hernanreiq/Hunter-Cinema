@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { SweetModal } from "../helpers/sweetalert2";
 
 class CreateActor extends Component {
 
@@ -8,7 +10,27 @@ class CreateActor extends Component {
 
     createActor = (e) => {
         e.preventDefault();
-        console.log(this.nameRef.current.value)
+        var name = this.nameRef.current.value;
+        var gender = this.genderRef.current.value;
+        var dateOfBirth = this.dateOfBirthRef.current.value;
+        if (name !== '' || gender !== '' || dateOfBirth !== '') {
+            axios({
+                method: "POST",
+                url: "http://localhost:3700/api/actors/create",
+                data: {
+                    name: name,
+                    gender: gender,
+                    dateOfBirth: dateOfBirth
+                }
+            })
+                .then(res => {
+                    if (res.data.error) {
+                        SweetModal('error', res.data.message);
+                    } else if (res.data.error === false) {
+                        SweetModal('success', res.data.message);
+                    }
+                })
+        }
     }
 
     render() {
