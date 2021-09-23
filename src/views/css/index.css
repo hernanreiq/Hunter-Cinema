@@ -65,3 +65,9 @@ a.firma:hover {
 .bg-crud-3 {
   background-color: rgb(25, 102, 25);
 }
+/*IMAGENES DE LAS TARJETAS*/
+img.img-card {
+  height: 300px;
+  object-fit: cover;
+  width: auto;
+}

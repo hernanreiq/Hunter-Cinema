@@ -10,7 +10,6 @@ class Index extends Component {
             <React.Fragment>
                 <main>
                     <LatestUpdates />
-                    <div className="white-division"></div>
                     <ActorFinder />
                     <div className="white-division"></div>
                     <FilmFinder />
