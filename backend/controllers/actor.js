@@ -1,4 +1,6 @@
 const ActorModel = require('../models/actor');
+const fs = require('fs');
+const path = require('path');
 
 const ActorController = {
     /* OBTIENE LOS ULTIMOS 4 ACTORES QUE FUERON EDITADOS O AGREGADOS */
@@ -24,10 +26,64 @@ const ActorController = {
                 createdAt: Date.now()
             });
             await newActor.save();
-            res.json({ message: "Actor creado con éxito!", error: false });
+            res.json({ message: "Actor creado con éxito!", error: false, actor: newActor });
         } else {
             res.json({ message: "Este actor ya fue registrado antes", error: true });
         }
+    },
+    /* SUBIR IMÁGENES DE LOS ACTORES */
+    uploadImage: async (req, res) => {
+        if (req.files) {
+            var filePath = req.files.photo.path;
+            var fileSplit = filePath.split('\\');
+            //si es en linux o mac, usar '/' en el split
+            var fileName = fileSplit[4];
+            //extraer extensión
+            var extSplit = fileName.split('\.');
+            var fileExt = extSplit[1];
+            if (fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg') {
+                //BUSCAR EL ACTOR PARA BORRARLE LA FOTO VIEJA
+                var actorId = req.params.id;
+                await ActorModel.findById(actorId, (err, actor) => {
+                    //SI EL ACTOR EXISTE ENTONCES SE LE BORRA LA FOTO VIEJA (SI ES QUE TIENE)
+                    var oldFilePath = './backend/public/img/actors/' + actor.photo;
+                    fs.stat(oldFilePath, async (err, stat) => {
+                        if (err, stat) {
+                            fs.unlink(oldFilePath, (err) => { });
+                        }
+                        await ActorModel.findByIdAndUpdate(actorId, { photo: fileName }, { new: true }, (err, actor) => {
+                            if (err) {
+                                res.json({ message: "No se pudo subir la imagen del actor", error: true });
+                            } else if (actor) {
+                                if(req.params.status === 'create'){
+                                    res.json({ message: "Actor creado con éxito!", error: false });
+                                } else {
+                                    res.json({ message: "Foto del actor actualizada con éxito!", error: false });
+                                }
+                            }
+                        });
+                    });
+                });
+            } else {
+                fs.unlink(filePath, () => {
+                    res.json({ message: 'El actor fue creado pero la imagen no se pudo subir', error: true });
+                });
+            }
+        } else {
+            res.json({ message: 'El actor fue creado pero la imagen no se pudo subir', error: true });
+        }
+    },
+    /* OBTENER IMAGENES PARA MOSTRARLAS POR PANTALLA */
+    getImage: (req, res) => {
+        var file = req.params.image;
+        var filePath = './backend/public/img/actors/' + file;
+        fs.exists(filePath, (exists) => {
+            if(exists){
+                res.sendFile(path.resolve(filePath));
+            } else {
+                res.json({message: "Hay un actor sin imagen", error: true});
+            }
+        })
     },
     /* ACTUALIZAR UN ACTOR, SE COMPRUEBA SI EXISTE ANTES DE ACTUALIZAR */
     updateActor: (req, res) => {
@@ -39,7 +95,6 @@ const ActorController = {
                     name: name,
                     dateOfBirth: dateOfBirth,
                     gender: gender,
-                    photo: null,
                     films: [],
                     createdAt: Date.now()
                 };
