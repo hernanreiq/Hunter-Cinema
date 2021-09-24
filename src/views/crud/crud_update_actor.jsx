@@ -102,7 +102,7 @@ class UpdateActor extends Component {
                                         </React.Fragment> :
                                         <React.Fragment>
                                             <h5>Foto del actor</h5>
-                                            <img src={this.props.actor.photo} alt={this.props.actor.name} className="img-card w-100" />
+                                            <img src={this.props.actor.photo} alt={this.props.actor.name} className="img-card w-100 rounded" />
                                             <button className="btn btn-success my-2" onClick={this.updatePhoto} >Cambiar la foto</button>
                                         </React.Fragment>
                                     }

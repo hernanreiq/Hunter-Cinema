@@ -1,11 +1,51 @@
 import React, { Component } from "react";
+import { SweetModal } from "../helpers/sweetalert2";
+import axios from "axios";
+import LatestTemplate from "./templates/latest-actors";
 
 class ActorFinder extends Component {
     state = {
-        photo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Will_Smith_by_Gage_Skidmore_2.jpg"
+        photo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Will_Smith_by_Gage_Skidmore_2.jpg",
+        searchMessage: "Debes realizar una búsqueda",
+        searched: false,
+        actors: []
     }
-    testClick = () => {
-        console.log('BUSCADO')
+
+    searchGenderRef = React.createRef();
+    searchNameRef = React.createRef();
+
+    searchActor = () => {
+        var searchName = this.searchNameRef.current.value;
+        var searchGender = this.searchGenderRef.current.value;
+        if (searchName !== '') {
+            if (searchGender === 'Todos' || searchGender === 'Mujer' || searchGender === 'Hombre') {
+                axios({
+                    method: "POST",
+                    url: `http://localhost:3700/api/actors/search/${searchGender}/${searchName}`,
+                })
+                    .then(res => {
+                        if (res.data.error === false) {
+                            this.setState({
+                                searchMessage: res.data.message,
+                                searched: true,
+                                actors: res.data.actors
+                            })
+                        } else if (res.data.error) {
+                            this.setState({
+                                searchMessage: res.data.message,
+                                searched: false
+                            })
+                        }
+                    })
+            } else {
+                SweetModal('info', 'Usted tiene un filtro que no existe, elija entre Mujer, Hombre o Todos');
+            }
+        } else {
+            this.setState({
+                searchMessage: "Debes realizar una búsqueda",
+                searched: false
+            })
+        }
     }
     render() {
         return (
@@ -17,57 +57,33 @@ class ActorFinder extends Component {
                             <div className="col-md-8 offset-md-2">
                                 <div className="input-group mb-3">
                                     <div className="input-group-prepend section-color-2">
-                                        <button className="btn btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sexo</button>
-                                        <div className="dropdown-menu">
-                                            <a className="dropdown-item" href="/">Mujer</a>
-                                            <a className="dropdown-item" href="/">Hombre</a>
-                                        </div>
+                                        <select ref={this.searchGenderRef} name="gender" className="form-control bg-dark text-white">
+                                            <option defaultValue="Todos">Todos</option>
+                                            <option value="Mujer">Mujer</option>
+                                            <option value="Hombre">Hombre</option>
+                                        </select>
                                     </div>
-                                    <input type="text" className="form-control" aria-label="Text input with dropdown button" />
+                                    <input ref={this.searchNameRef} onChange={this.searchActor} name="name" autoComplete="off" type="text" className="form-control" placeholder="Escribe el nombre y apellido" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="container pt-4 pb-5">
-                        <h2 className="text-center mb-4 text-white">Resultados de la búsqueda</h2>
-                        <div className="row">
-                            <div className="col-md-3 my-2">
-                                <div className="card shadow">
-                                    <img src={this.state.photo} alt="Will Smith" />
-                                    <div className="card-body p-2 text-center">
-                                        <h5 className="card-title mb-0">Will Smith</h5>
-                                        <button onClick={this.testClick} className="btn btn-red-wine mt-2 py-0">View details</button>
-                                    </div>
-                                </div>
+                        <h2 className="text-center mb-4 text-white">{this.state.searchMessage}</h2>
+                        {this.state.searched &&
+                            <div className="row">
+                                {this.state.actors.map((actor, i) => {
+                                    return (
+                                        < LatestTemplate
+                                            key={i}
+                                            index={i}
+                                            actor={actor}
+                                        />
+                                    )
+                                })
+                                }
                             </div>
-                            <div className="col-md-3 my-2">
-                                <div className="card shadow">
-                                    <img src={this.state.photo} alt="Will Smith" />
-                                    <div className="card-body p-2 text-center">
-                                        <h5 className="card-title mb-0">Will Smith</h5>
-                                        <button onClick={this.testClick} className="btn btn-red-wine mt-2 py-0">View details</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 my-2">
-                                <div className="card shadow">
-                                    <img src={this.state.photo} alt="Will Smith" />
-                                    <div className="card-body p-2 text-center">
-                                        <h5 className="card-title mb-0">Will Smith</h5>
-                                        <button onClick={this.testClick} className="btn btn-red-wine mt-2 py-0">View details</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3 my-2">
-                                <div className="card shadow">
-                                    <img src={this.state.photo} alt="Will Smith" />
-                                    <div className="card-body p-2 text-center">
-                                        <h5 className="card-title mb-0">Will Smith</h5>
-                                        <button onClick={this.testClick} className="btn btn-red-wine mt-2 py-0">View details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </section>
             </React.Fragment>

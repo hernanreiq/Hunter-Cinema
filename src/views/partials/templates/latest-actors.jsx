@@ -31,6 +31,12 @@ class LatestTemplate extends Component {
         this.getImage();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.actor.name !== this.props.actor.name) {
+            this.getImage();
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -39,7 +45,7 @@ class LatestTemplate extends Component {
                         <img src={this.state.photoPath} alt={this.props.actor.name} className="img-card" />
                         <div className="card-body p-2 text-center">
                             <h5 className="card-title mb-0">{this.props.actor.name}</h5>
-                            <button onClick={this.props.testClick} className="btn btn-red-wine mt-2 py-0">Ver detalles</button>
+                            <button className="btn btn-red-wine mt-2 py-0">Ver detalles</button>
                         </div>
                     </div>
                 </div>

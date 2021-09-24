@@ -9,6 +9,7 @@ var photosActorsRoute = multipart({uploadDir: './backend/public/img/actors'});
 
 /* RUTAS DE LA API PARA ACTORES */
 route.get('/api/actors/updated', ActorController.updatedActors);
+route.post('/api/actors/search/:gender/:name', ActorController.searchActor);
 route.post('/api/actors/create', ActorController.createActor);
 route.post('/api/actors/upload-photo/:status/:id', photosActorsRoute, ActorController.uploadImage);
 route.get('/api/actors/get-image/:image', ActorController.getImage);

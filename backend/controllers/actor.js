@@ -3,6 +3,32 @@ const fs = require('fs');
 const path = require('path');
 
 const ActorController = {
+    /* BUSCADOR DE ACTORES */
+    searchActor: async (req, res) => {
+        const { gender, name } = req.params;
+        if (gender === 'Todos') {
+            const actors = await ActorModel.find({ 
+                name: { $regex: '.*' + name + '.*', $options: 'i' } 
+            }).limit(4);
+            if(actors.length === 0) {
+                res.json({ message: "No hay resultados de su búsqueda", error: true });
+            } else {
+                res.json({ message: "Resultados de la búsqueda", error: false, actors: actors});
+            }
+        } else {
+            const actors = await ActorModel.find({
+                $and: [
+                    { name: { $regex: '.*' + name + '.*', $options: 'i' } },
+                    { gender: gender }
+                ]
+            }).limit(4);
+            if(actors.length === 0) {
+                res.json({ message: "No hay resultados de su búsqueda", error: true });
+            } else {
+                res.json({ message: "Resultados de la búsqueda", error: false, actors: actors});
+            }
+        }
+    },
     /* OBTIENE LOS ULTIMOS 4 ACTORES QUE FUERON EDITADOS O AGREGADOS */
     updatedActors: async (req, res) => {
         const Actors = await ActorModel.find().sort({ createdAt: -1 }).limit(4);
@@ -54,7 +80,7 @@ const ActorController = {
                             if (err) {
                                 res.json({ message: "No se pudo subir la imagen del actor", error: true });
                             } else if (actor) {
-                                if(req.params.status === 'create'){
+                                if (req.params.status === 'create') {
                                     res.json({ message: "Actor creado con éxito!", error: false });
                                 } else {
                                     res.json({ message: "Foto del actor actualizada con éxito!", error: false });
@@ -77,10 +103,10 @@ const ActorController = {
         var file = req.params.image;
         var filePath = './backend/public/img/actors/' + file;
         fs.exists(filePath, (exists) => {
-            if(exists){
+            if (exists) {
                 res.sendFile(path.resolve(filePath));
             } else {
-                res.json({message: "Hay un actor sin imagen", error: true});
+                res.json({ message: "Hay un actor sin imagen", error: true });
             }
         })
     },
