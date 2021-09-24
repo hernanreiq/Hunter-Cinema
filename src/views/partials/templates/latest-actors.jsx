@@ -34,12 +34,12 @@ class LatestTemplate extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="col-md-3 my-2">
+                <div className="col-lg-3 my-2">
                     <div className="card shadow">
                         <img src={this.state.photoPath} alt={this.props.actor.name} className="img-card" />
                         <div className="card-body p-2 text-center">
                             <h5 className="card-title mb-0">{this.props.actor.name}</h5>
-                            <button onClick={this.props.testClick} className="btn btn-red-wine mt-2 py-0">View details</button>
+                            <button onClick={this.props.testClick} className="btn btn-red-wine mt-2 py-0">Ver detalles</button>
                         </div>
                     </div>
                 </div>

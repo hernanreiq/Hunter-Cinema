@@ -86,7 +86,8 @@ class CreateActor extends Component {
                                     <input ref={this.dateOfBirthRef} type="date" name="dateOfBirth" id="dateOfBirth" className="form-control" required />
                                 </div>
                                 <div className="form-group">
-                                    <input onChange={this.selectedFile} type="file" name="photo" className="form-control" accept="image/png, image/jpeg, image/jpg" required />
+                                    <label htmlFor="photo">Foto del actor</label>
+                                    <input onChange={this.selectedFile} type="file" name="photo" id="photo" className="form-control" accept="image/png, image/jpeg, image/jpg" required />
                                 </div>
                             </form>
                         </div>

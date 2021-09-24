@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CreateActor from "./crud/crud_create_actor";
+import UpdateActor from "./crud/crud_update_actor";
 
 class CRUD extends Component {
     state = {
@@ -75,7 +76,18 @@ class CRUD extends Component {
                                 {this.state.actorCRUD &&
                                     <CreateActor />
                                 }
-
+                            </div>
+                            <div className="col-md-6 my-2 p-0">
+                                {this.state.actorCRUD &&
+                                    <UpdateActor 
+                                        actor={{
+                                            name: "Hernan Demorizi",
+                                            gender: "Hombre",
+                                            dateOfBirth: "1998-12-02",
+                                            photo: "http://localhost:3700/api/actors/get-image/woWM7YOCqd4hYGHFnBowr-iX.jpg"
+                                        }}
+                                    />
+                                }
                             </div>
                         </div>
                     </div>

@@ -22,7 +22,6 @@ const ActorController = {
                 dateOfBirth: dateOfBirth,
                 gender: gender,
                 photo: null,
-                films: [],
                 createdAt: Date.now()
             });
             await newActor.save();
@@ -95,7 +94,6 @@ const ActorController = {
                     name: name,
                     dateOfBirth: dateOfBirth,
                     gender: gender,
-                    films: [],
                     createdAt: Date.now()
                 };
                 await ActorModel.findByIdAndUpdate(idActor, newDataActor);
