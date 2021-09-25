@@ -22,9 +22,6 @@ class LatestUpdates extends Component {
                 }
             })
     }
-    testClick = () => {
-        console.log('CLICK')
-    }
     componentDidMount(){
         this.getActorsUpdated();
     }
@@ -41,7 +38,7 @@ class LatestUpdates extends Component {
                                         <LatestTemplate
                                             key={i}
                                             actor={actor}
-                                            testClick={this.testClick}
+                                            viewActor={this.props.viewActor}
                                         />
                                     )
                                 })

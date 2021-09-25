@@ -37,15 +37,19 @@ class LatestTemplate extends Component {
         }
     }
 
+    viewActor = () => {
+        this.props.viewActor(this.props.actor, this.state.photoPath)
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div className="col-lg-3 my-2">
-                    <div className="card shadow">
+                    <div className="card shadow card-actor">
                         <img src={this.state.photoPath} alt={this.props.actor.name} className="img-card" />
                         <div className="card-body p-2 text-center">
                             <h5 className="card-title mb-0">{this.props.actor.name}</h5>
-                            <button className="btn btn-red-wine mt-2 py-0">Ver detalles</button>
+                            <button className="btn btn-red-wine mt-2 py-0" onClick={this.viewActor}>Ver detalles</button>
                         </div>
                     </div>
                 </div>

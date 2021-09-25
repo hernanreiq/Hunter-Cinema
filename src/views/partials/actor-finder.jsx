@@ -78,6 +78,7 @@ class ActorFinder extends Component {
                                             key={i}
                                             index={i}
                                             actor={actor}
+                                            viewActor={this.props.viewActor}
                                         />
                                     )
                                 })
