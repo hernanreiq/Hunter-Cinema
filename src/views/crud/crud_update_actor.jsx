@@ -50,7 +50,7 @@ class UpdateActor extends Component {
             <React.Fragment>
                 <div className="col-md-12 my-2">
                     <div className="card shadow text-white">
-                        <div className="card-header bg-info">
+                        <div className="card-header bg-warning">
                             <h2 className="card-title mb-0 text-center">Actualizar un actor</h2>
                         </div>
                         <div className="card-body bg-dark">
@@ -58,11 +58,11 @@ class UpdateActor extends Component {
                                 <div className="form-group mb-4">
                                     {this.state.name === true ?
                                         <React.Fragment>
-                                            <label htmlFor="name">Nombre y apellidos</label>
+                                            <label htmlFor="name">Nombre completo</label>
                                             <input ref={this.nameRef} type="text" name="name" id="name" className="form-control" defaultValue={this.props.actor.name} required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><b>Nombre:</b> {this.props.actor.name}</h5>
+                                            <h5><span>Nombre completo:</span> {this.props.actor.name}</h5>
                                             <button className="btn btn-success my-2" onClick={this.updateName} >Editar el nombre</button>
                                         </React.Fragment>
                                     }
@@ -77,7 +77,7 @@ class UpdateActor extends Component {
                                             </select>
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><b>Sexo:</b> {this.props.actor.gender}</h5>
+                                            <h5><span>Sexo:</span> {this.props.actor.gender}</h5>
                                             <button className="btn btn-success my-2" onClick={this.updateGender} >Editar el sexo</button>
                                         </React.Fragment>
                                     }
@@ -89,7 +89,7 @@ class UpdateActor extends Component {
                                             <input ref={this.dateOfBirthRef} type="date" name="dateOfBirth" id="dateOfBirth" className="form-control" defaultValue={this.props.actor.dateOfBirth} required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><b>Fecha de nacimiento:</b> {this.props.actor.dateOfBirth}</h5>
+                                            <h5><span>Fecha de nacimiento:</span> {this.props.actor.dateOfBirth}</h5>
                                             <button className="btn btn-success my-2" onClick={this.updateDateOfBirth} >Editar fecha de nacimiento</button>
                                         </React.Fragment>
                                     }
@@ -101,7 +101,7 @@ class UpdateActor extends Component {
                                             <input onChange={this.selectedFile} type="file" name="photo" id="photo" className="form-control" accept="image/png, image/jpeg, image/jpg" required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5>Foto del actor</h5>
+                                            <h5><span>Foto del actor</span></h5>
                                             <img src={this.props.actor.photo} alt={this.props.actor.name} className="img-card w-100 rounded" />
                                             <button className="btn btn-success my-2" onClick={this.updatePhoto} >Cambiar la foto</button>
                                         </React.Fragment>
