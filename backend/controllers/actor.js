@@ -110,19 +110,6 @@ const ActorController = {
             }
         })
     },
-    deleteImage: async (req, res) => {
-        var file = req.params.image;
-        var filePath = './backend/public/img/actors/' + file;
-        fs.exists(filePath, (exists) => {
-            if (exists) {
-                fs.unlink(filePath, () => {
-                    res.json({ message: 'Imagen borrada con éxito!', error: false });
-                });
-            } else {
-                res.json({ message: 'La imagen no existe, intenta borrando otra', error: true })
-            }
-        })
-    },
     /* ACTUALIZAR UN ACTOR, SE COMPRUEBA SI EXISTE ANTES DE ACTUALIZAR */
     updateActor: (req, res) => {
         const { name, dateOfBirth, gender } = req.body;
@@ -141,19 +128,6 @@ const ActorController = {
                 res.json({ message: "No se puede actualizar un actor que no existe", error: true });
             } else {
                 res.json({ message: "No se puede actualizar un actor que no existe", error: true });
-            }
-        });
-    },
-    /* BORRAR UN ACTOR, SE COMPRUEBA QUE EXISTA ANTES DE BORRARLO */
-    deleteActor: (req, res) => {
-        const idActor = req.params.id;
-        ActorModel.findByIdAndRemove(idActor, (err, actor) => {
-            if (actor) {
-                res.json({ message: "Actor eliminado con éxito!", error: false });
-            } else if (err) {
-                res.json({ message: "No se pudo eliminar este actor", error: true });
-            } else {
-                res.json({ message: "No se pudo eliminar este actor", error: true });
             }
         });
     }

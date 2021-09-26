@@ -1,8 +1,18 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
+import { AxiosDeleteActor } from "../helpers/axios_http";
 
 class DeleteActor extends Component {
-    render(){
-        return(
+
+    deleteActor = () => {
+        AxiosDeleteActor(this.props.id);
+    }
+
+    closeCrudDelete = () => {
+        console.log('Cerrado!', this.props.id);
+    }
+
+    render() {
+        return (
             <React.Fragment>
                 <div className="col-md-12 my-2">
                     <div className="card shadow text-white">
@@ -14,8 +24,8 @@ class DeleteActor extends Component {
                             <p className="mb-0">Su nombre también se borrará de las películas donde haya trabajado.</p>
                         </div>
                         <div className="card-footer bg-secondary">
-                            <button className="btn btn-dark w-100 my-2">Cancelar</button>
-                            <button className="btn btn-success w-100 my-2">Borrar definitivamente</button>
+                            <button className="btn btn-dark w-100 my-2" onClick={this.closeCrudDelete}>Cancelar</button>
+                            <button className="btn btn-success w-100 my-2" onClick={this.deleteActor} >Borrar definitivamente</button>
                         </div>
                     </div>
                 </div>

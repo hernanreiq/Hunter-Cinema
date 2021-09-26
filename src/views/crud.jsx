@@ -86,7 +86,7 @@ class CRUD extends Component {
                                             name: "Hernan Demorizi",
                                             gender: "Hombre",
                                             dateOfBirth: "1998-12-02",
-                                            photo: "http://localhost:3700/api/actors/get-image/woWM7YOCqd4hYGHFnBowr-iX.jpg"
+                                            photo: "http://localhost:3700/api/image/woWM7YOCqd4hYGHFnBowr-iX.jpg"
                                         }}
                                     />
                                 }
@@ -97,6 +97,7 @@ class CRUD extends Component {
                                 {this.state.actorCRUD &&
                                     <DeleteActor 
                                         name="Hernan Demorizi Ureña"
+                                        id='614c4cd4c4aa241dca9b16aa'
                                     />
                                 }
                             </div>
@@ -107,7 +108,7 @@ class CRUD extends Component {
                                         name: "Hernan Demorizi",
                                         gender: "Hombre",
                                         dateOfBirth: "1998-12-02",
-                                        photo: "http://localhost:3700/api/actors/get-image/woWM7YOCqd4hYGHFnBowr-iX.jpg"
+                                        photo: "http://localhost:3700/api/image/woWM7YOCqd4hYGHFnBowr-iX.jpg"
                                     }}
                                     />
                                 }

@@ -11,7 +11,7 @@ class LatestTemplate extends Component {
         var fileName = this.props.actor.photo;
         axios({
             method: 'GET',
-            url: 'http://localhost:3700/api/actors/get-image/' + fileName
+            url: 'http://localhost:3700/api/image/' + fileName
         })
             .then(res => {
                 if (res.data.error) {
