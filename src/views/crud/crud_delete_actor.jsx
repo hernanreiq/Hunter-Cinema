@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { AxiosDeleteActor } from "../helpers/axios_http";
+import { AxiosDeleteActor } from "../helpers/axios-http";
 
 class DeleteActor extends Component {
 

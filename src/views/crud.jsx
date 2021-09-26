@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ChangeOptionsCRUDActor from "./helpers/change_options_crud_actor";
+import ChangeOptionsCRUDActor from "./helpers/change-options-crud-actor";
 
 class CRUD extends Component {
     state = {

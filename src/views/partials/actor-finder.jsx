@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { SweetModal } from "../helpers/sweetalert2";
 import axios from "axios";
 import LatestTemplate from "./templates/latest-actors";
+import ActorSearchedCrud from "./templates/actor-searched-crud";
 
 class ActorFinder extends Component {
     state = {
-        photo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Will_Smith_by_Gage_Skidmore_2.jpg",
         searchMessage: "Debes realizar una búsqueda",
         searched: false,
         actors: []
@@ -73,14 +73,25 @@ class ActorFinder extends Component {
                         {this.state.searched &&
                             <div className="row">
                                 {this.state.actors.map((actor, i) => {
-                                    return (
-                                        < LatestTemplate
-                                            key={i}
-                                            index={i}
-                                            actor={actor}
-                                            viewActor={this.props.viewActor}
-                                        />
-                                    )
+                                    if (this.props.crud) {
+                                        return (
+                                            <ActorSearchedCrud
+                                                key={i}
+                                                index={i}
+                                                actor={actor}
+                                                viewActor={this.props.viewActor}
+                                            />
+                                        )
+                                    } else {
+                                        return (
+                                            < LatestTemplate
+                                                key={i}
+                                                index={i}
+                                                actor={actor}
+                                                viewActor={this.props.viewActor}
+                                            />
+                                        )
+                                    }
                                 })
                                 }
                             </div>

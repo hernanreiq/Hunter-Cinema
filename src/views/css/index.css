@@ -103,3 +103,9 @@ img.img-card {
   background: var(--rojovino-claro); 
   border-radius: 10px;
 }
+/*BUSCADOR DE ACTORES CRUD*/
+div.actor-finder {
+  border: solid #ffffff 1px;
+  border-radius: 3px;
+  overflow: hidden;
+}
