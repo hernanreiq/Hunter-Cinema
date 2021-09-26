@@ -47,6 +47,11 @@ class ActorFinder extends Component {
             })
         }
     }
+
+    CloseOptions = () => {
+        this.props.CloseOptions();
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -97,6 +102,11 @@ class ActorFinder extends Component {
                             </div>
                         }
                     </div>
+                    {this.props.crud &&
+                        <div className="text-center pb-3">
+                            <button type="button" className="btn my-2 btn-danger" onClick={this.CloseOptions}>Volver a las opciones</button>
+                        </div>
+                    }
                 </section>
             </React.Fragment>
         )

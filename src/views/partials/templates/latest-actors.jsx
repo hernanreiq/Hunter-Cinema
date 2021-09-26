@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { SweetModal } from "../../helpers/sweetalert2";
+import { AxiosGetImage } from "../../helpers/axios-http";
 
 class LatestTemplate extends Component {
     state = {
@@ -9,22 +8,14 @@ class LatestTemplate extends Component {
 
     getImage = () => {
         var fileName = this.props.actor.photo;
-        axios({
-            method: 'GET',
-            url: 'http://localhost:3700/api/image/' + fileName
+        var photoPath = AxiosGetImage(fileName, 'actors');
+        photoPath.then((photoPath, err) => {
+            if (photoPath) {
+                this.setState({
+                    photoPath: photoPath
+                })
+            }
         })
-            .then(res => {
-                if (res.data.error) {
-                    SweetModal('error', res.data.message);
-                    this.setState({
-                        photoPath: 'https://www.nicepng.com/png/detail/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent.png'
-                    })
-                } else {
-                    this.setState({
-                        photoPath: res.config.url
-                    })
-                }
-            })
     }
 
     componentDidMount() {

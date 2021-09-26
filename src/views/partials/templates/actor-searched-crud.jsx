@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 
 class ActorSearchedCrud extends Component {
+    viewActor = () => {
+        this.props.viewActor();
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -14,7 +18,7 @@ class ActorSearchedCrud extends Component {
                                 <div className="col-md-5">
                                     <button className="btn btn-success mx-1 mt-2">DD</button>
                                     <button className="btn btn-success mx-1 mt-2">UU</button>
-                                    <button className="btn btn-success mx-1 mt-2">RR</button>
+                                    <button className="btn btn-success mx-1 mt-2" onClick={this.viewActor}>RR</button>
                                 </div>
                             </div>
                         </div>

@@ -98,18 +98,6 @@ const ActorController = {
             res.json({ message: 'El actor fue creado pero la imagen no se pudo subir', error: true });
         }
     },
-    /* OBTENER IMAGENES PARA MOSTRARLAS POR PANTALLA */
-    getImage: (req, res) => {
-        var file = req.params.image;
-        var filePath = './backend/public/img/actors/' + file;
-        fs.exists(filePath, (exists) => {
-            if (exists) {
-                res.sendFile(path.resolve(filePath));
-            } else {
-                res.json({ message: "Hay un actor sin imagen", error: true });
-            }
-        })
-    },
     /* ACTUALIZAR UN ACTOR, SE COMPRUEBA SI EXISTE ANTES DE ACTUALIZAR */
     updateActor: (req, res) => {
         const { name, dateOfBirth, gender } = req.body;

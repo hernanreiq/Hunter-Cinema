@@ -14,3 +14,19 @@ export const AxiosDeleteActor = (idActor) => {
             }
         })
 }
+export const AxiosGetImage = async (fileName, owner) => {
+    var photoPath = '';
+    await axios({
+        method: 'GET',
+        url: `http://localhost:3700/api/image/${owner}/${fileName}`
+    })
+        .then(res => {
+            if (res.data.error) {
+                SweetModal('error', res.data.message);
+                photoPath = 'https://www.nicepng.com/png/detail/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent.png';
+            } else {
+                photoPath = res.config.url
+            }
+        })
+    return photoPath;
+}
