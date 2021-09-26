@@ -15,5 +15,6 @@ route.post('/api/actors/upload-photo/:status/:id', photosActorsRoute, ActorContr
 route.get('/api/actors/get-image/:image', ActorController.getImage);
 route.put('/api/actors/update/:id', ActorController.updateActor);
 route.delete('/api/actors/delete/:id', ActorController.deleteActor);
+route.delete('/api/images/delete/:image', ActorController.deleteImage);
 
 module.exports = route;

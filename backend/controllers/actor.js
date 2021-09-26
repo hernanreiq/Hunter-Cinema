@@ -7,13 +7,13 @@ const ActorController = {
     searchActor: async (req, res) => {
         const { gender, name } = req.params;
         if (gender === 'Todos') {
-            const actors = await ActorModel.find({ 
-                name: { $regex: '.*' + name + '.*', $options: 'i' } 
+            const actors = await ActorModel.find({
+                name: { $regex: '.*' + name + '.*', $options: 'i' }
             }).limit(4);
-            if(actors.length === 0) {
+            if (actors.length === 0) {
                 res.json({ message: "No hay resultados de su búsqueda", error: true });
             } else {
-                res.json({ message: "Resultados de la búsqueda", error: false, actors: actors});
+                res.json({ message: "Resultados de la búsqueda", error: false, actors: actors });
             }
         } else {
             const actors = await ActorModel.find({
@@ -22,10 +22,10 @@ const ActorController = {
                     { gender: gender }
                 ]
             }).limit(4);
-            if(actors.length === 0) {
+            if (actors.length === 0) {
                 res.json({ message: "No hay resultados de su búsqueda", error: true });
             } else {
-                res.json({ message: "Resultados de la búsqueda", error: false, actors: actors});
+                res.json({ message: "Resultados de la búsqueda", error: false, actors: actors });
             }
         }
     },
@@ -107,6 +107,19 @@ const ActorController = {
                 res.sendFile(path.resolve(filePath));
             } else {
                 res.json({ message: "Hay un actor sin imagen", error: true });
+            }
+        })
+    },
+    deleteImage: async (req, res) => {
+        var file = req.params.image;
+        var filePath = './backend/public/img/actors/' + file;
+        fs.exists(filePath, (exists) => {
+            if (exists) {
+                fs.unlink(filePath, () => {
+                    res.json({ message: 'Imagen borrada con éxito!', error: false });
+                });
+            } else {
+                res.json({ message: 'La imagen no existe, intenta borrando otra', error: true })
             }
         })
     },
