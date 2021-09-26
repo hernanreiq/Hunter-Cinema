@@ -51,6 +51,7 @@ class CreateActor extends Component {
                                     SweetModal('info', res.data.message);
                                 } else if (!res.data.error) {
                                     SweetModal('success', res.data.message);
+                                    this.CloseOptions();
                                 }
                             })
                     }
@@ -60,10 +61,14 @@ class CreateActor extends Component {
         }
     }
 
+    CloseOptions = () => {
+        this.props.CloseOptions();
+    }
+
     render() {
         return (
             <React.Fragment>
-                <div className="col-md-12 my-2">
+                <div className="col-md-12 my-2 p-0">
                     <div className="card shadow text-white">
                         <div className="card-header bg-success">
                             <h2 className="card-title mb-0 text-center">Añade un nuevo actor</h2>
@@ -92,6 +97,7 @@ class CreateActor extends Component {
                             </form>
                         </div>
                         <div className="card-footer bg-secondary">
+                            <button type="button" className="btn w-100 my-2 btn-danger" onClick={this.CloseOptions}>Volver a las opciones</button>
                             <button type="reset" form="create-actor" className="btn w-100 my-2 btn-dark">Limpiar todos los campos</button>
                             <button type="submit" form="create-actor" className="btn w-100 my-2 btn-success">Crear este actor</button>
                         </div>
