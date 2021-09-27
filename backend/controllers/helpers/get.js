@@ -20,7 +20,7 @@ const GetController = {
                 }
             }
         })
-    },
+    }
 }
 
 module.exports = GetController;
