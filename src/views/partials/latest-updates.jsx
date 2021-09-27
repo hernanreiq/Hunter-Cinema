@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
 import LatestTemplate from "./templates/latest-actors";
+import Modal from "./modal";
 
 class LatestUpdates extends Component {
     state = {
-        actors: []
+        actors: [],
+        modalActor: {},
+        modalPhoto: '',
+        showModal: false
     }
     getActorsUpdated = () => {
         axios({
@@ -22,8 +26,21 @@ class LatestUpdates extends Component {
                 }
             })
     }
-    componentDidMount(){
+    componentDidMount() {
         this.getActorsUpdated();
+    }
+    viewActor = (actor, photoPath) => {
+        this.setState({
+            modalActor: actor,
+            modalPhoto: photoPath,
+            showModal: true
+        })
+    }
+
+    hideModal = () => {
+        this.setState({
+            showModal: false
+        })
     }
     render() {
         return (
@@ -38,14 +55,22 @@ class LatestUpdates extends Component {
                                         <LatestTemplate
                                             key={i}
                                             actor={actor}
+                                            viewActor={this.viewActor}
                                         />
                                     )
                                 })
-
                                 }
                             </div>
                         </div>
                         <div className="white-division"></div>
+                        {this.state.showModal &&
+                            <Modal
+                                showModal={this.state.showModal}
+                                hideModal={this.hideModal}
+                                actor={this.state.modalActor}
+                                photoPath={this.state.modalPhoto}
+                            />
+                        }
                     </section>
                 }
             </React.Fragment>

@@ -100,7 +100,6 @@ class ActorFinder extends Component {
                                         return (
                                             <ActorSearchedCrud
                                                 key={i}
-                                                index={i}
                                                 actor={actor}
                                                 viewActor={this.viewActor}
                                             />
@@ -109,7 +108,6 @@ class ActorFinder extends Component {
                                         return (
                                             < LatestTemplate
                                                 key={i}
-                                                index={i}
                                                 actor={actor}
                                                 viewActor={this.viewActor}
                                             />
