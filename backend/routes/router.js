@@ -19,9 +19,9 @@ route.post('/api/actors/upload-photo/:status/:id', photosActorsRoute, ActorContr
 route.put('/api/actors/update/:id', ActorController.updateActor);
 
 /* BORRADOR */
-route.delete('/api/actor/:id', DeleteController.deleteActor);
-route.delete('/api/film/:id', DeleteController.deleteFilm);
-route.delete('/api/image/:owner/:image', DeleteController.deleteImage);
+route.delete('/api/actors/:id', DeleteController.deleteActor);
+route.delete('/api/films/:id', DeleteController.deleteFilm);
+route.delete('/api/images/:owner/:image', DeleteController.deleteImage);
 
 /* OBTENER */
 route.get('/api/image/:owner/:image', GetController.getImage);

@@ -64,7 +64,13 @@ class ActorFinder extends Component {
         })
     }
 
-    hideModal = () =>{
+    deleteActor = (actor, photoPath) => {
+        if (this.props.crud) {
+            this.props.DeleteActor(actor, photoPath);
+        }
+    }
+
+    hideModal = () => {
         this.setState({
             showModal: false
         })
@@ -102,6 +108,7 @@ class ActorFinder extends Component {
                                                 key={i}
                                                 actor={actor}
                                                 viewActor={this.viewActor}
+                                                deleteActor={this.deleteActor}
                                             />
                                         )
                                     } else {

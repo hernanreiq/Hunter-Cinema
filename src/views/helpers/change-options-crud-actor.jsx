@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import CreateActor from "../crud/crud_create_actor";
 import UpdateActor from "../crud/crud_update_actor";
 import DeleteActor from "../crud/crud_delete_actor";
-import ViewActor from "../crud/crud_view_actor";
 import ActorFinder from "../partials/actor-finder";
 
 
@@ -10,9 +9,10 @@ class ChangeOptionsCRUDActor extends Component {
     state = {
         CreateActor: false,
         UpdateActor: false,
-        ViewActor: false,
         DeleteActor: false,
-        ActorFinder: false
+        ActorFinder: false,
+        actor: {},
+        photoPath: ''
     }
 
     CreateActor = () => {
@@ -28,14 +28,24 @@ class ChangeOptionsCRUDActor extends Component {
             ActorFinder: true
         })
     }
-    
+
+    DeleteActor = (actor, photoPath) => {
+        this.CloseOptions();
+        this.setState({
+            DeleteActor: true,
+            actor: actor,
+            photoPath: photoPath
+        })
+    }
+
     CloseOptions = () => {
         this.setState({
             CreateActor: false,
             UpdateActor: false,
-            ViewActor: false,
             DeleteActor: false,
-            ActorFinder: false
+            ActorFinder: false,
+            actor: {},
+            photoPath: ''
         })
     }
 
@@ -56,18 +66,24 @@ class ChangeOptionsCRUDActor extends Component {
                 {this.state.CreateActor &&
                     <CreateActor CloseOptions={this.CloseOptions} />
                 }
-                {this.state.ViewActor &&
-                    <ViewActor CloseOptions={this.CloseOptions} />
-                }
                 {this.state.UpdateActor &&
                     <UpdateActor CloseOptions={this.CloseOptions} />
                 }
                 {this.state.DeleteActor &&
-                    <DeleteActor CloseOptions={this.CloseOptions} />
+                    <DeleteActor
+                        CloseOptions={this.CloseOptions}
+                        backToFinder={this.ActorFinder}
+                        actor={this.state.actor}
+                        photoPath={this.state.photoPath}
+                    />
                 }
                 {this.state.ActorFinder &&
                     <div className="actor-finder shadow">
-                        <ActorFinder CloseOptions={this.CloseOptions} crud={true} />
+                        <ActorFinder
+                            crud={true}
+                            CloseOptions={this.CloseOptions}
+                            DeleteActor={this.DeleteActor}
+                        />
                     </div>
                 }
             </React.Fragment>

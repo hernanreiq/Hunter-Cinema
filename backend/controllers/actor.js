@@ -65,7 +65,7 @@ const ActorController = {
             var fileName = fileSplit[4];
             //extraer extensión
             var extSplit = fileName.split('\.');
-            var fileExt = extSplit[1];
+            var fileExt = extSplit[1].toLowerCase();
             if (fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg') {
                 //BUSCAR EL ACTOR PARA BORRARLE LA FOTO VIEJA
                 var actorId = req.params.id;

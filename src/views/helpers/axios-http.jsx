@@ -1,16 +1,37 @@
 import axios from "axios";
 import { SweetModal } from "./sweetalert2";
 
-export const AxiosDeleteActor = (idActor) => {
+export const AxiosDeleteActorsFilms = (idActor, photo, owner) => {
     axios({
         method: 'DELETE',
-        url: `http://localhost:3700/api/actor/${idActor}`
+        url: `http://localhost:3700/api/${owner}/${idActor}`
     })
         .then(res => {
             if (!res.data.error) {
-                SweetModal('success', res.data.message);
+                AxiosDeleteImage(owner, photo);
             } else {
                 SweetModal('error', res.data.message);
+            }
+        })
+}
+export const AxiosDeleteImage = (owner, image) => {
+    axios({
+        method: 'DELETE',
+        url: `http://localhost:3700/api/images/${owner}/${image}`
+    })
+        .then(res => {
+            if (!res.data.error) {
+                if (owner === 'actors') {
+                    SweetModal('success', 'Actor eliminado con éxito!');
+                } else if (owner === 'films') {
+                    SweetModal('success', 'Película eliminada con éxito!');
+                }
+            } else {
+                if (owner === 'actors') {
+                    SweetModal('error', 'El actor fue eliminado, pero no su fotografía');
+                } else if (owner === 'films') {
+                    SweetModal('error', 'La película fue eliminada, pero no su fotografía');
+                }
             }
         })
 }

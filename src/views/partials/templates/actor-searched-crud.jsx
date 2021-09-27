@@ -31,7 +31,11 @@ class ActorSearchedCrud extends Component {
     }
 
     viewActor = () => {
-        this.props.viewActor(this.props.actor, this.state.photoPath)
+        this.props.viewActor(this.props.actor, this.state.photoPath);
+    }
+
+    deleteActor = () => {
+        this.props.deleteActor(this.props.actor, this.state.photoPath);
     }
 
     render() {
@@ -45,14 +49,14 @@ class ActorSearchedCrud extends Component {
                                     <h5 className="mb-0 pl-1 py-2">{this.props.actor.name}</h5>
                                 </div>
                                 <div className="col-xl-5 text-center">
-                                    <button className="btn btn-danger mx-1">
+                                    <button className="btn btn-danger mx-1" onClick={this.deleteActor}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                     <button className="btn btn-info mx-1">
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
-                                    <button className="btn btn-success mx-1">
-                                        <FontAwesomeIcon icon={faEye} onClick={this.viewActor} />
+                                    <button className="btn btn-success mx-1" onClick={this.viewActor}>
+                                        <FontAwesomeIcon icon={faEye}/>
                                     </button>
                                 </div>
                             </div>
