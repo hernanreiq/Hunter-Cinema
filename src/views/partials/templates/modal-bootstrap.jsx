@@ -7,7 +7,7 @@ class ModalBootstrap extends Component {
     }
 
     closeModal = () => {
-        this.props.hideModal(false);
+        this.props.hideModal();
     }
 
     componentDidUpdate(prevProps, prevState) {

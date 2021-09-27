@@ -38,7 +38,6 @@ class LatestUpdates extends Component {
                                         <LatestTemplate
                                             key={i}
                                             actor={actor}
-                                            viewActor={this.props.viewActor}
                                         />
                                     )
                                 })

@@ -1,10 +1,37 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
+import { AxiosGetImage } from "../../helpers/axios-http";
 
 class ActorSearchedCrud extends Component {
+    state = {
+        photoPath: ''
+    }
+
+    getImage = () => {
+        var fileName = this.props.actor.photo;
+        var photoPath = AxiosGetImage(fileName, 'actors');
+        photoPath.then((photoPath, err) => {
+            if (photoPath) {
+                this.setState({
+                    photoPath: photoPath
+                })
+            }
+        })
+    }
+
+    componentDidMount() {
+        this.getImage();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.actor.name !== this.props.actor.name) {
+            this.getImage();
+        }
+    }
+
     viewActor = () => {
-        this.props.viewActor();
+        this.props.viewActor(this.props.actor, this.state.photoPath)
     }
 
     render() {
@@ -24,8 +51,8 @@ class ActorSearchedCrud extends Component {
                                     <button className="btn btn-info mx-1">
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
-                                    <button className="btn btn-success mx-1" onClick={this.viewActor}>
-                                        <FontAwesomeIcon icon={faEye} />
+                                    <button className="btn btn-success mx-1">
+                                        <FontAwesomeIcon icon={faEye} onClick={this.viewActor} />
                                     </button>
                                 </div>
                             </div>

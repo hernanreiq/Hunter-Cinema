@@ -5,13 +5,17 @@ import CRUD from "../views/crud";
 import Nav from "../views/partials/nav";
 
 class Router extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <BrowserRouter>
                 <Nav />
                 <Switch>
-                    <Route exact path="/" component={Index} />
-                    <Route exact path="/crud" component={CRUD} />
+                    <Route exact path="/" render={() => {
+                        return (<Index />)
+                    }} />
+                    <Route exact path="/crud" render={() => {
+                        return (<CRUD />)
+                    }} />
                 </Switch>
             </BrowserRouter>
         )

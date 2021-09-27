@@ -3,12 +3,16 @@ import { SweetModal } from "../helpers/sweetalert2";
 import axios from "axios";
 import LatestTemplate from "./templates/latest-actors";
 import ActorSearchedCrud from "./templates/actor-searched-crud";
+import Modal from "./modal";
 
 class ActorFinder extends Component {
     state = {
         searchMessage: "Debes realizar una búsqueda",
         searched: false,
-        actors: []
+        actors: [],
+        modalActor: {},
+        modalPhoto: '',
+        showModal: false
     }
 
     searchGenderRef = React.createRef();
@@ -52,6 +56,20 @@ class ActorFinder extends Component {
         this.props.CloseOptions();
     }
 
+    viewActor = (actor, photoPath) => {
+        this.setState({
+            modalActor: actor,
+            modalPhoto: photoPath,
+            showModal: true
+        })
+    }
+
+    hideModal = () =>{
+        this.setState({
+            showModal: false
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -84,7 +102,7 @@ class ActorFinder extends Component {
                                                 key={i}
                                                 index={i}
                                                 actor={actor}
-                                                viewActor={this.props.viewActor}
+                                                viewActor={this.viewActor}
                                             />
                                         )
                                     } else {
@@ -93,7 +111,7 @@ class ActorFinder extends Component {
                                                 key={i}
                                                 index={i}
                                                 actor={actor}
-                                                viewActor={this.props.viewActor}
+                                                viewActor={this.viewActor}
                                             />
                                         )
                                     }
@@ -108,6 +126,14 @@ class ActorFinder extends Component {
                         </div>
                     }
                 </section>
+                {this.state.showModal &&
+                    <Modal
+                        showModal={this.state.showModal}
+                        hideModal={this.hideModal}
+                        actor={this.state.modalActor}
+                        photoPath={this.state.modalPhoto}
+                    />
+                }
             </React.Fragment>
         )
     }
