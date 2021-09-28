@@ -29,6 +29,15 @@ class ChangeOptionsCRUDActor extends Component {
         })
     }
 
+    UpdateActor = (actor, photoPath) => {
+        this.CloseOptions();
+        this.setState({
+            UpdateActor: true,
+            actor: actor,
+            photoPath: photoPath
+        })
+    }
+
     DeleteActor = (actor, photoPath) => {
         this.CloseOptions();
         this.setState({
@@ -67,7 +76,12 @@ class ChangeOptionsCRUDActor extends Component {
                     <CreateActor CloseOptions={this.CloseOptions} />
                 }
                 {this.state.UpdateActor &&
-                    <UpdateActor CloseOptions={this.CloseOptions} />
+                    <UpdateActor
+                        CloseOptions={this.CloseOptions}
+                        backToFinder={this.ActorFinder}
+                        actor={this.state.actor}
+                        photoPath={this.state.photoPath}
+                    />
                 }
                 {this.state.DeleteActor &&
                     <DeleteActor
@@ -83,6 +97,7 @@ class ChangeOptionsCRUDActor extends Component {
                             crud={true}
                             CloseOptions={this.CloseOptions}
                             DeleteActor={this.DeleteActor}
+                            UpdateActor={this.UpdateActor}
                         />
                     </div>
                 }

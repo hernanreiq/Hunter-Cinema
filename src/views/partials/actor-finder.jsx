@@ -64,6 +64,12 @@ class ActorFinder extends Component {
         })
     }
 
+    updateActor = (actor, photoPath) => {
+        if (this.props.crud) {
+            this.props.UpdateActor(actor, photoPath);
+        }
+    }
+
     deleteActor = (actor, photoPath) => {
         if (this.props.crud) {
             this.props.DeleteActor(actor, photoPath);
@@ -109,6 +115,7 @@ class ActorFinder extends Component {
                                                 actor={actor}
                                                 viewActor={this.viewActor}
                                                 deleteActor={this.deleteActor}
+                                                updateActor={this.updateActor}
                                             />
                                         )
                                     } else {

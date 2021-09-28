@@ -41,6 +41,10 @@ class UpdateActor extends Component {
         })
     }
 
+    backToFinder = () => {
+        this.props.backToFinder();
+    }
+
     updateActor = () => {
         console.log('Click')
     }
@@ -48,8 +52,8 @@ class UpdateActor extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="col-md-12 my-2">
-                    <div className="card shadow text-white">
+                <div className="col-md-12 my-2 p-0">
+                    <div className="card shadow text-white text-center">
                         <div className="card-header bg-warning">
                             <h2 className="card-title mb-0 text-center">Actualizar un actor</h2>
                         </div>
@@ -102,7 +106,7 @@ class UpdateActor extends Component {
                                         </React.Fragment> :
                                         <React.Fragment>
                                             <h5><span>Foto del actor</span></h5>
-                                            <img src={this.props.actor.photo} alt={this.props.actor.name} className="img-card w-100 rounded" />
+                                            <img src={this.props.photoPath} alt={this.props.actor.name} className="img-card w-75 mx-auto mb-2 rounded d-block" />
                                             <button className="btn btn-success my-2" onClick={this.updatePhoto} >Cambiar la foto</button>
                                         </React.Fragment>
                                     }
@@ -110,8 +114,13 @@ class UpdateActor extends Component {
                             </form>
                         </div>
                         <div className="card-footer bg-secondary">
-                            <button onClick={this.resetOptions} className="btn w-100 my-2 btn-dark">Reiniciar el editor</button>
-                            <button type="submit" form="update-actor" className="btn w-100 my-2 btn-success">Actualizar este actor</button>
+                            <button type="button" className="btn w-100 my-2 btn-dark" onClick={this.backToFinder}>Volver al buscador</button>
+                            {this.state.name || this.state.gender || this.state.dateOfBirth || this.state.photo ?
+                                <React.Fragment>
+                                    <button onClick={this.resetOptions} className="btn w-100 my-2 btn-dark">Reiniciar el editor</button>
+                                    <button type="submit" form="update-actor" className="btn w-100 my-2 btn-success">Actualizar este actor</button>
+                                </React.Fragment> : ''
+                            }
                         </div>
                     </div>
                 </div>
