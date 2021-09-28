@@ -5,7 +5,8 @@ class UpdateActor extends Component {
         name: false,
         gender: false,
         dateOfBirth: false,
-        photo: false
+        photo: false,
+        resultDateOfBirth: ''
     }
 
     updateName = () => {
@@ -32,6 +33,28 @@ class UpdateActor extends Component {
         })
     }
 
+    calDateOfBirth = () => {
+        var dateOfBirth = this.props.actor.dateOfBirth;
+        var year = dateOfBirth.substring(0,4);
+        var month = dateOfBirth.substring(5, 7);
+        var day = dateOfBirth.substring(8, 10);
+        var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        month = parseInt(month);
+        this.setState({
+            resultDateOfBirth: `${day} / ${months[month - 1]} / ${year}`
+        });
+    }
+
+    componentDidMount() {
+        this.calDateOfBirth();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.actor.name !== this.props.actor.name) {
+            this.calDateOfBirth();
+        }
+    }
+
     resetOptions = () => {
         this.setState({
             name: false,
@@ -45,8 +68,9 @@ class UpdateActor extends Component {
         this.props.backToFinder();
     }
 
-    updateActor = () => {
-        console.log('Click')
+    updateActor = (e) => {
+        e.preventDefault();
+        console.log(`Actualizando a ${this.props.actor.name} en la base de datos de MongoDB jeje`)
     }
 
     render() {
@@ -93,7 +117,7 @@ class UpdateActor extends Component {
                                             <input ref={this.dateOfBirthRef} type="date" name="dateOfBirth" id="dateOfBirth" className="form-control" defaultValue={this.props.actor.dateOfBirth} required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><span>Fecha de nacimiento:</span> {this.props.actor.dateOfBirth}</h5>
+                                            <h5><span>Fecha de nacimiento:</span> {this.state.resultDateOfBirth}</h5>
                                             <button className="btn btn-success my-2" onClick={this.updateDateOfBirth} >Editar fecha de nacimiento</button>
                                         </React.Fragment>
                                     }
@@ -106,7 +130,7 @@ class UpdateActor extends Component {
                                         </React.Fragment> :
                                         <React.Fragment>
                                             <h5><span>Foto del actor</span></h5>
-                                            <img src={this.props.photoPath} alt={this.props.actor.name} className="img-card w-75 mx-auto mb-2 rounded d-block" />
+                                            <img src={this.props.photoPath} alt={this.props.actor.name} className="img-card mx-auto mb-2 rounded d-block" />
                                             <button className="btn btn-success my-2" onClick={this.updatePhoto} >Cambiar la foto</button>
                                         </React.Fragment>
                                     }
