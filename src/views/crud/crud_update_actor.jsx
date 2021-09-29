@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { SweetModal } from "../helpers/sweetalert2";
 
 class UpdateActor extends Component {
     state = {
@@ -6,7 +8,18 @@ class UpdateActor extends Component {
         gender: false,
         dateOfBirth: false,
         photo: false,
+        filePhoto: '',
         resultDateOfBirth: ''
+    }
+
+    nameRef = React.createRef();
+    genderRef = React.createRef();
+    dateOfBirthRef = React.createRef();
+
+    selectedFile = (e) => {
+        this.setState({
+            filePhoto: e.target.files[0]
+        });
     }
 
     updateName = () => {
@@ -35,7 +48,7 @@ class UpdateActor extends Component {
 
     calDateOfBirth = () => {
         var dateOfBirth = this.props.actor.dateOfBirth;
-        var year = dateOfBirth.substring(0,4);
+        var year = dateOfBirth.substring(0, 4);
         var month = dateOfBirth.substring(5, 7);
         var day = dateOfBirth.substring(8, 10);
         var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -70,7 +83,58 @@ class UpdateActor extends Component {
 
     updateActor = (e) => {
         e.preventDefault();
-        console.log(`Actualizando a ${this.props.actor.name} en la base de datos de MongoDB jeje`)
+        var idActor = this.props.actor._id;
+        var data = {};
+        if (this.state.name) {
+            var name = this.nameRef.current.value;
+            data.name = name;
+        }
+        if (this.state.dateOfBirth) {
+            var dateOfBirth = this.dateOfBirthRef.current.value;
+            data.dateOfBirth = dateOfBirth;
+        }
+        if (this.state.gender) {
+            var gender = this.genderRef.current.value;
+            data.gender = gender;
+        }
+        if (this.state.name || this.state.dateOfBirth || this.state.gender) {
+            axios({
+                method: "PUT",
+                url: `http://localhost:3700/api/actors/update/${idActor}`,
+                data: {
+                    name: name,
+                    gender: gender,
+                    dateOfBirth: dateOfBirth,
+                }
+            })
+                .then(res => {
+                    if (res.data.error) {
+                        SweetModal('error', res.data.message);
+                    } else if (!res.data.error) {
+                        this.CloseOptions();
+                        SweetModal('success', res.data.message);
+                    }
+                })
+        }
+
+        if (this.state.photo) {
+            const formData = new FormData();
+            formData.append('photo', this.state.filePhoto);
+            axios.post(`http://localhost:3700/api/actors/upload-photo/update/${idActor}`, formData)
+                .then(res => {
+                    if (res.data.error) {
+                        SweetModal('info', res.data.message);
+                    } else if (!res.data.error) {
+                        this.CloseOptions();
+                        SweetModal('success', res.data.message);
+                    }
+                })
+        }
+    }
+
+    
+    CloseOptions = () => {
+        this.props.CloseOptions();
     }
 
     render() {

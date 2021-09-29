@@ -41,10 +41,7 @@ class CreateActor extends Component {
                         /* SI EL ACTOR SE HA GUARDADO CORRECTAMENTE, ENTONCES SE SUBE LA IMAGEN POR SEPARADO */
                         var actorID = res.data.actor._id;
                         const formData = new FormData();
-                        formData.append(
-                            'photo',
-                            this.state.photo
-                        )
+                        formData.append('photo', photo);
                         axios.post('http://localhost:3700/api/actors/upload-photo/create/' + actorID, formData)
                             .then(res => {
                                 if (res.data.error) {
