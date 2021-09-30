@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
+import { DateConverter } from "../helpers/dateConverter";
 
 class UpdateActor extends Component {
     state = {
@@ -47,14 +48,9 @@ class UpdateActor extends Component {
     }
 
     calDateOfBirth = () => {
-        var dateOfBirth = this.props.actor.dateOfBirth;
-        var year = dateOfBirth.substring(0, 4);
-        var month = dateOfBirth.substring(5, 7);
-        var day = dateOfBirth.substring(8, 10);
-        var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        month = parseInt(month);
+        var dateOfBirth = DateConverter(this.props.actor.dateOfBirth);
         this.setState({
-            resultDateOfBirth: `${day} / ${months[month - 1]} / ${year}`
+            resultDateOfBirth: dateOfBirth
         });
     }
 
