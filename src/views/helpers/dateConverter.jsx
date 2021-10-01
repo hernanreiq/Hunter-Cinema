@@ -5,6 +5,5 @@ export const DateConverter = (date) => {
     var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     month = parseInt(month);
     var result = `${day} / ${months[month - 1]} / ${year}`;
-    console.log(result)
     return result;
 }

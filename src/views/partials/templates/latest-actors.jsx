@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { AxiosGetImage } from "../../helpers/axios-http";
+import { ShortName } from "../../helpers/short-name";
 
 class LatestTemplate extends Component {
     state = {
@@ -35,11 +36,12 @@ class LatestTemplate extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="col-lg-3 my-2">
+                <div className="col-lg-3 mb-3 mt-2">
                     <div className="card shadow card-actor">
                         <img src={this.state.photoPath} alt={this.props.actor.name} className="img-card" />
                         <div className="card-body p-2 text-center">
-                            <h5 className="card-title mb-0">{this.props.actor.name}</h5>
+                            <h5 className="card-title mb-0 d-none d-lg-block">{ShortName(this.props.actor.name)}</h5>
+                            <h5 className="card-title mb-0 d-lg-none">{this.props.actor.name}</h5>
                             <button className="btn btn-red-wine mt-2 py-0" onClick={this.viewActor}>Ver detalles</button>
                         </div>
                     </div>

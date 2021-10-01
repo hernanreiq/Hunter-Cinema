@@ -47,8 +47,8 @@ class LatestUpdates extends Component {
             <React.Fragment>
                 {this.state.actors.length !== 0 &&
                     <section className="section-color-2">
-                        <div className="container pt-4 pb-5">
-                            <h2 className="text-center mb-4 text-white">Últimas actualizaciones</h2>
+                        <div className="container px-0 pt-4 pb-5">
+                            <h2 className="text-center mb-4 px-4 text-white">Últimas actualizaciones</h2>
                             <div className="row">
                                 {this.state.actors.map((actor, i) => {
                                     return (

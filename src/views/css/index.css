@@ -71,9 +71,8 @@ a.firma:hover {
 }
 /*TARJETAS*/
 img.img-card {
-  height: 300px;
   object-fit: cover;
-  width: auto;
+  height: 300px;
 }
 @media only screen and (max-width: 991px) {
   div.card-actor {
