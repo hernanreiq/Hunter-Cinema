@@ -52,6 +52,13 @@ class ActorFinder extends Component {
         }
     }
 
+    filterChange = () => {
+        var searchName = this.searchNameRef.current.value;
+        if (searchName !== '') {
+            this.searchActor();
+        }
+    }
+
     CloseOptions = () => {
         this.props.CloseOptions();
     }
@@ -92,7 +99,7 @@ class ActorFinder extends Component {
                             <div className="col-md-8 offset-md-2">
                                 <div className="input-group mb-3">
                                     <div className="input-group-prepend section-color-2">
-                                        <select ref={this.searchGenderRef} name="gender" className="form-control bg-dark text-white">
+                                        <select ref={this.searchGenderRef} name="gender" className="form-control bg-dark text-white" onChange={this.filterChange}>
                                             <option defaultValue="Todos">Todos</option>
                                             <option value="Mujer">Mujer</option>
                                             <option value="Hombre">Hombre</option>
