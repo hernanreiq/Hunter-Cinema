@@ -2,6 +2,7 @@
 
 # Folders
 backend/public/img/actors
+backend/public/img/films
 
 # dependencies
 /node_modules

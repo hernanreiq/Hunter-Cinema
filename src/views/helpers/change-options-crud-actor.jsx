@@ -61,7 +61,7 @@ class ChangeOptionsCRUDActor extends Component {
     render() {
         return (
             <React.Fragment>
-                {!this.state.CreateActor && !this.state.UpdateActor && !this.state.DeleteActor && !this.state.ViewActor && !this.state.ActorFinder ?
+                {!this.state.CreateActor && !this.state.UpdateActor && !this.state.DeleteActor && !this.state.ActorFinder ?
                     <div className="card shadow my-2">
                         <div className="card-header bg-info text-white">
                             <h2 className="card-title mb-0 text-center">Opciones</h2>

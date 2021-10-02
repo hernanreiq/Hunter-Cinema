@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ChangeOptionsCRUDActor from "./helpers/change-options-crud-actor";
+import ChangeOptionsCRUDFilm from "./helpers/change-options-crud-films";
 
 class CRUD extends Component {
     state = {
@@ -70,12 +71,19 @@ class CRUD extends Component {
                                 </div>
                             }
                         </div>
-                        {this.state.actorCRUD === true || this.state.filmCRUD === true ?
+                        {this.state.actorCRUD === true && this.state.filmCRUD === false &&
                             <div className="row">
                                 <div className="col-md-8 offset-md-2 mt-2">
                                     <ChangeOptionsCRUDActor />
                                 </div>
-                            </div> : ''
+                            </div>
+                        }
+                        {this.state.actorCRUD === false && this.state.filmCRUD === true &&
+                            <div className="row">
+                                <div className="col-md-8 offset-md-2 mt-2">
+                                    <ChangeOptionsCRUDFilm />
+                                </div>
+                            </div>
                         }
                     </div>
                 </main>

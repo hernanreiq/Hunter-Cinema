@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { AxiosGetImage } from "../../helpers/axios-http";
-import { ShortName } from "../../helpers/short-name";
+import { ShortName } from "../../helpers/functions";
 
 class LatestTemplate extends Component {
     state = {

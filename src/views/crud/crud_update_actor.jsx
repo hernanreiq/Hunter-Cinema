@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
-import { DateConverter } from "../helpers/dateConverter";
+import { DateConverter } from "../helpers/functions";
 
 class UpdateActor extends Component {
     state = {
@@ -108,7 +108,9 @@ class UpdateActor extends Component {
                         SweetModal('error', res.data.message);
                     } else if (!res.data.error) {
                         this.CloseOptions();
-                        SweetModal('success', res.data.message);
+                        if (!this.state.photo) {
+                            SweetModal('success', res.data.message);
+                        }
                     }
                 })
         }
@@ -122,7 +124,11 @@ class UpdateActor extends Component {
                         SweetModal('info', res.data.message);
                     } else if (!res.data.error) {
                         this.CloseOptions();
-                        SweetModal('success', res.data.message);
+                        if (this.state.name || this.state.dateOfBirth || this.state.gender) {
+                            SweetModal('success', 'La foto y los datos del actor fueron actualizados con éxito!');
+                        } else {
+                            SweetModal('success', res.data.message);
+                        }
                     }
                 })
         }

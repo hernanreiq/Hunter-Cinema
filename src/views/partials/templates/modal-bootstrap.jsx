@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { DateConverter } from "../../helpers/dateConverter";
+import { DateConverter } from "../../helpers/functions";
 
 class ModalBootstrap extends Component {
     state = {
