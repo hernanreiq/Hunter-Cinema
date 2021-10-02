@@ -9,7 +9,7 @@ const GetController = require("../controllers/helpers/get");
 const PostController = require("../controllers/helpers/post");
 const DeleteController = require("../controllers/helpers/delete");
 
-//RUTA DE LAS FOTOS DE LOS ACTORES
+// RUTA PARA LA SUBIDA DE LAS FOTOS DE LOS ACTORES Y PELÍCULAS
 var photosActorsRoute = multipart({ uploadDir: './backend/public/img/actors' });
 var photosFilmsRoute = multipart({ uploadDir: './backend/public/img/films' });
 
