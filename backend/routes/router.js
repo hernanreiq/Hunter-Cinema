@@ -36,5 +36,6 @@ route.delete('/api/images/:owner/:image', DeleteController.deleteImage);
 
 /* HTTP - GET */
 route.get('/api/image/:owner/:image', GetController.getImage);
+route.get('/api/films/genders', FilmController.allGenders);
 
 module.exports = route;

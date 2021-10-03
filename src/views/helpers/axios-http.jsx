@@ -1,10 +1,11 @@
 import axios from "axios";
 import { SweetModal } from "./sweetalert2";
 
+export const API_URL = 'http://localhost:3700/api';
 export const AxiosDeleteActorsFilms = (idActor, photo, owner) => {
     axios({
         method: 'DELETE',
-        url: `http://localhost:3700/api/${owner}/${idActor}`
+        url: `${API_URL}/${owner}/${idActor}`
     })
         .then(res => {
             if (!res.data.error) {
@@ -17,7 +18,7 @@ export const AxiosDeleteActorsFilms = (idActor, photo, owner) => {
 export const AxiosDeleteImage = (owner, image) => {
     axios({
         method: 'DELETE',
-        url: `http://localhost:3700/api/images/${owner}/${image}`
+        url: `${API_URL}/images/${owner}/${image}`
     })
         .then(res => {
             if (!res.data.error) {
@@ -39,7 +40,7 @@ export const AxiosGetImage = async (fileName, owner) => {
     var photoPath = '';
     await axios({
         method: 'GET',
-        url: `http://localhost:3700/api/image/${owner}/${fileName}`
+        url: `${API_URL}/image/${owner}/${fileName}`
     })
         .then(res => {
             if (res.data.error) {
@@ -50,4 +51,19 @@ export const AxiosGetImage = async (fileName, owner) => {
             }
         })
     return photoPath;
+}
+export const AxiosGetGenders = async () => {
+    var ArrayGenders = [];
+    await axios({
+        method: 'GET',
+        url: `${API_URL}/films/genders`
+    })
+        .then(res => {
+            if (!res.data.error) {
+                ArrayGenders = res.data.genders;
+            } else {
+                return res.data.message;
+            }
+        });
+    return ArrayGenders;
 }

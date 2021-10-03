@@ -4,7 +4,7 @@ const FilmController = {
     /* BUSCADOR DE ACTORES */
     searchFilm: async (req, res) => {
         const { gender, title } = req.params;
-        if (gender === 'Todos') {
+        if (gender === 'Todas') {
             const films = await FilmModel.find({
                 title: { $regex: '.*' + title + '.*', $options: 'i' }
             }).limit(4);
@@ -45,6 +45,15 @@ const FilmController = {
             res.json({ message: "Esta película ya fue registrada antes", error: true });
         }
     },
+    /* OBTENER TODOS LOS GÉNEROS QUE EXISTEN PARA ASÍ CREAR FILTROS DINÁMICOS */
+    allGenders: async (req, res) => {
+        const allGenders = await FilmModel.distinct("gender");
+        if (allGenders.length === 0) {
+            res.json({ message: "No hay películas guardadas", error: true });
+        } else {
+            res.json({ message: "Estos son los géneros de las películas guardadas", error: false, genders: allGenders });
+        }
+    }
 }
 
 module.exports = FilmController;
