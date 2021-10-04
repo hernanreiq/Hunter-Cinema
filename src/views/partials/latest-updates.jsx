@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
+import { API_URL } from "../helpers/axios-http";
 import LatestTemplate from "./templates/latest-actors";
 import Modal from "./modal";
 
@@ -14,7 +15,7 @@ class LatestUpdates extends Component {
     getActorsUpdated = () => {
         axios({
             method: 'GET',
-            url: 'http://localhost:3700/api/actors/updated'
+            url: `${API_URL}/actors/updated`
         })
             .then(res => {
                 if (res.data.error) {

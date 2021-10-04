@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SweetModal } from "../helpers/sweetalert2";
 import axios from "axios";
+import { API_URL } from "../helpers/axios-http";
 import LatestTemplate from "./templates/latest-actors";
 import ActorSearchedCrud from "./templates/actor-searched-crud";
 import Modal from "./modal";
@@ -25,7 +26,7 @@ class ActorFinder extends Component {
             if (searchGender === 'Todos' || searchGender === 'Mujer' || searchGender === 'Hombre') {
                 axios({
                     method: "POST",
-                    url: `http://localhost:3700/api/actors/search/${searchGender}/${searchName}`,
+                    url: `${API_URL}/actors/search/${searchGender}/${searchName}`,
                 })
                     .then(res => {
                         if (res.data.error === false) {
