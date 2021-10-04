@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { AxiosGetGenders, API_URL } from "../helpers/axios-http";
 import FilmTemplate from "./templates/film-template";
+import FilmSearchedCrud from "./templates/film-searched-crud";
 
 class FilmFinder extends Component {
     state = {
@@ -74,7 +75,6 @@ class FilmFinder extends Component {
     }
 
     viewFilm = (film, photoPath) => {
-        console.log(film, photoPath)
         this.setState({
             modalFilm: film,
             modalPhoto: photoPath,
@@ -113,7 +113,13 @@ class FilmFinder extends Component {
                             <div className="row">
                                 {this.state.films.map((film, i) => {
                                     if (this.props.crud) {
-                                        return (<h1>{film.title}</h1>)
+                                        return (
+                                            <FilmSearchedCrud 
+                                                key={i}
+                                                film={film}
+                                                viewFilm={this.viewFilm}
+                                            />
+                                        )
                                     } else {
                                         return (
                                             <FilmTemplate 

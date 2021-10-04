@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CreateFilm from "../crud/crud_create_film";
+import FilmFinder from "../partials/film-finder";
 
 class ChangeOptionsCRUDFilm extends Component {
     state = {
@@ -64,12 +65,20 @@ class ChangeOptionsCRUDFilm extends Component {
                         </div>
                         <div className="card-body bg-dark">
                             <button className="btn btn-success w-100 my-2 rounded-pill" onClick={this.CreateFilm} >Añadir una película</button>
-                            <button className="btn btn-info w-100 my-2 rounded-pill">Buscar una película</button>
+                            <button className="btn btn-info w-100 my-2 rounded-pill" onClick={this.FilmFinder} >Buscar una película</button>
                         </div>
                     </div> : ''
                 }
                 {this.state.CreateFilm &&
                     <CreateFilm CloseOptions={this.CloseOptions} />
+                }
+                {this.state.FilmFinder &&
+                    <div className="actor-finder shadow">
+                        <FilmFinder
+                            crud={true}
+                            CloseOptions={this.CloseOptions}
+                        />
+                    </div>
                 }
             </React.Fragment>
         )
