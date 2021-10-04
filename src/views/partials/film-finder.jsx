@@ -83,6 +83,12 @@ class FilmFinder extends Component {
         })
     }
 
+    deleteFilm = (film, photoPath) => {
+        if (this.props.crud) {
+            this.props.DeleteFilm(film, photoPath);
+        }
+    }
+
     hideModal = () => {
         this.setState({
             showModal: false
@@ -125,6 +131,7 @@ class FilmFinder extends Component {
                                                 key={i}
                                                 film={film}
                                                 viewFilm={this.viewFilm}
+                                                deleteFilm={this.deleteFilm}
                                             />
                                         )
                                     } else {

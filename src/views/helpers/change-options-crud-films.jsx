@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CreateFilm from "../crud/crud_create_film";
+import DeleteFilm from "../crud/crud_delete_film";
 import FilmFinder from "../partials/film-finder";
 
 class ChangeOptionsCRUDFilm extends Component {
@@ -72,11 +73,20 @@ class ChangeOptionsCRUDFilm extends Component {
                 {this.state.CreateFilm &&
                     <CreateFilm CloseOptions={this.CloseOptions} />
                 }
+                {this.state.DeleteFilm &&
+                    <DeleteFilm 
+                        CloseOptions={this.CloseOptions} 
+                        backToFinder={this.FilmFinder}
+                        film={this.state.film}
+                        photoPath={this.state.photoPath}
+                    />
+                }
                 {this.state.FilmFinder &&
                     <div className="actor-finder shadow">
                         <FilmFinder
                             crud={true}
                             CloseOptions={this.CloseOptions}
+                            DeleteFilm={this.DeleteFilm}
                         />
                     </div>
                 }
