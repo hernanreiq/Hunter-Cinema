@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { DateConverter } from "../../helpers/functions";
 
-class ModalBootstrap extends Component {
+class ModalFilm extends Component {
     state = {
         showModal: this.props.show
     }
@@ -24,13 +24,13 @@ class ModalBootstrap extends Component {
             <React.Fragment>
                 <Modal show={this.state.showModal}>
                     <Modal.Header className="section-color-1 text-white">
-                        <h3 className="mb-0 mx-auto">{this.props.actor.name}</h3>
+                        <h3 className="mb-0 mx-auto">{this.props.film.title}</h3>
                     </Modal.Header>
                     <Modal.Body className="text-center section-color-2 text-white">
-                        <img src={this.props.photo} alt={this.props.actor.name} className="w-75 rounded img-modal mb-4" />
-                        <p>Fecha de nacimiento: <span className="text-warning">{DateConverter(this.props.actor.dateOfBirth)}</span></p>
-                        <p>Sexo: <span className="text-warning">{this.props.actor.gender}</span></p>
-                        <p><b>Películas en las que ha trabajado</b></p>
+                        <img src={this.props.photo} alt={this.props.film.title} className="w-75 rounded img-modal mb-4" />
+                        <p>Fecha de estreno: <span className="text-warning">{DateConverter(this.props.film.releaseDate)}</span></p>
+                        <p>Género: <span className="text-warning">{this.props.film.gender}</span></p>
+                        <p><b>Actores que trabajaron en la película</b></p>
                     </Modal.Body>
                     <Modal.Footer className="bg-dark">
                         <Button className="btn btn-danger" onClick={this.closeModal}>Cerrar</Button>
@@ -41,4 +41,4 @@ class ModalBootstrap extends Component {
     }
 }
 
-export default ModalBootstrap;
+export default ModalFilm;

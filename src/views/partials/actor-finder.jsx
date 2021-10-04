@@ -152,6 +152,7 @@ class ActorFinder extends Component {
                         hideModal={this.hideModal}
                         actor={this.state.modalActor}
                         photoPath={this.state.modalPhoto}
+                        isActor={true}
                     />
                 }
             </React.Fragment>

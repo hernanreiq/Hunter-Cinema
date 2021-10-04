@@ -31,15 +31,15 @@ class FilmSearchedCrud extends Component {
     }
 
     viewFilm = () => {
-        this.props.viewActor(this.props.film, this.state.photoPath);
+        this.props.viewFilm(this.props.film, this.state.photoPath);
     }
 
     deleteFilm = () => {
-        this.props.deleteActor(this.props.film, this.state.photoPath);
+        this.props.deleteFilm(this.props.film, this.state.photoPath);
     }
 
     updateFilm = () => {
-        this.props.updateActor(this.props.film, this.state.photoPath);
+        this.props.updateFilm(this.props.film, this.state.photoPath);
     }
 
     render() {

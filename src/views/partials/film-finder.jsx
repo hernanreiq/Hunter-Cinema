@@ -3,6 +3,7 @@ import axios from "axios";
 import { AxiosGetGenders, API_URL } from "../helpers/axios-http";
 import FilmTemplate from "./templates/film-template";
 import FilmSearchedCrud from "./templates/film-searched-crud";
+import Modal from "./modal";
 
 class FilmFinder extends Component {
     state = {
@@ -82,6 +83,12 @@ class FilmFinder extends Component {
         })
     }
 
+    hideModal = () => {
+        this.setState({
+            showModal: false
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -95,7 +102,7 @@ class FilmFinder extends Component {
                                         <select ref={this.searchGenderRef} name="gender" className="form-control bg-danger text-white" onChange={this.filterChange}>
                                             <option defaultValue="Todas">Todas</option>
                                             {this.state.genders.map((gender, i) => {
-                                                return(
+                                                return (
                                                     <option value={gender} key={i}>{gender}</option>
                                                 )
                                             })
@@ -114,7 +121,7 @@ class FilmFinder extends Component {
                                 {this.state.films.map((film, i) => {
                                     if (this.props.crud) {
                                         return (
-                                            <FilmSearchedCrud 
+                                            <FilmSearchedCrud
                                                 key={i}
                                                 film={film}
                                                 viewFilm={this.viewFilm}
@@ -122,7 +129,7 @@ class FilmFinder extends Component {
                                         )
                                     } else {
                                         return (
-                                            <FilmTemplate 
+                                            <FilmTemplate
                                                 key={i}
                                                 film={film}
                                                 viewFilm={this.viewFilm}
@@ -140,6 +147,15 @@ class FilmFinder extends Component {
                         </div>
                     }
                 </section>
+                {this.state.showModal &&
+                    <Modal
+                        showModal={this.state.showModal}
+                        hideModal={this.hideModal}
+                        film={this.state.modalFilm}
+                        photoPath={this.state.modalPhoto}
+                        isActor={false}
+                    />
+                }
             </React.Fragment>
         )
     }
