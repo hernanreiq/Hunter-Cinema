@@ -22,7 +22,11 @@ export const TextVerify = (text) => {
     var textLength = textSplit.length;
     var counter_VowelAndNumber = 0;
     for (var i = 0; i <= textLength; i++) {
-        if (textSplit[i] === 'a' || textSplit[i] === 'e' || textSplit[i] === 'i' || textSplit[i] === 'o' || textSplit[i] === 'u') {
+        if (textSplit[i] === 'a' || textSplit[i] === 'b' || textSplit[i] === 'c' || textSplit[i] === 'd' || textSplit[i] === 'e' || textSplit[i] === 'f' ||
+            textSplit[i] === 'g' || textSplit[i] === 'h' || textSplit[i] === 'i' || textSplit[i] === 'j' || textSplit[i] === 'k' || textSplit[i] === 'l' ||
+            textSplit[i] === 'm' || textSplit[i] === 'n' || textSplit[i] === 'o' || textSplit[i] === 'p' || textSplit[i] === 'q' || textSplit[i] === 'r' ||
+            textSplit[i] === 's' || textSplit[i] === 't' || textSplit[i] === 'u' || textSplit[i] === 'v' || textSplit[i] === 'w' || textSplit[i] === 'x' ||
+            textSplit[i] === 'y' || textSplit[i] === 'z' || textSplit[i] === 'ñ') {
             counter_VowelAndNumber += 1;
         } else {
             textSplit[i] = parseInt(textSplit[i]);
