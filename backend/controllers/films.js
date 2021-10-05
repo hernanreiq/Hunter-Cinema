@@ -57,7 +57,6 @@ const FilmController = {
     /* ACTUALIZAR UNA PELÍCULA, SE COMPRUEBA SI EXISTE ANTES DE ACTUALIZAR */
     updateFilm: (req, res) => {
         const { title, releaseDate, gender, actors } = req.body;
-        console.log(req.body);
         const idFilm = req.params.id;
         FilmModel.findById(idFilm, async (err, film) => {
             if (film) {
@@ -75,6 +74,21 @@ const FilmController = {
                 res.json({ message: "No se puede actualizar una película que no existe", error: true });
             }
         });
+    },
+    /* OBTENER TODAS LAS PELÍCULAS EN LAS QUE TRABAJÓ UN ACTOR */
+    actorFilms: async (req, res) => {
+        const name = req.params.actor;
+        await FilmModel.find({
+            actors: { $all: [name] }
+        }, (err, films) => {
+            if (err) {
+                res.json({ message: "Hubo un error en la consulta", error: true });
+            } else if (films) {
+                res.json({message: "Películas del actor buscadas con éxito!", error: false, films: films});
+            } else {
+                res.json({ message: "Este actor no tiene películas", error: false });
+            }
+        }).sort({releaseDate: -1})
     }
 }
 

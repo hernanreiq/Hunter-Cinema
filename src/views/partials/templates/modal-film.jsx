@@ -30,10 +30,13 @@ class ModalFilm extends Component {
                         <img src={this.props.photo} alt={this.props.film.title} className="w-75 rounded img-modal mb-4" />
                         <p>Fecha de estreno: <span className="text-warning">{DateConverter(this.props.film.releaseDate)}</span></p>
                         <p>Género: <span className="text-warning">{this.props.film.gender}</span></p>
-                        <p className="mb-0 mt-1"><b>Actores que trabajaron en la película</b></p>
+                        {this.props.film.actors.length > 0 ?
+                            <p className="mb-0 mt-1"><b>Actores que trabajaron en la película:</b></p> :
+                            <p className="mb-0 mt-1"><b>Esta película no tiene actores registrados</b></p> 
+                        }
                         {this.props.film.actors.map((actor, i) => {
-                            return(
-                                <span key={i} className="mr-1 badge badge-success">{actor}</span>
+                            return (
+                                <span key={i} className="mb-0 text-warning d-block">{actor}</span>
                             )
                         })
                         }

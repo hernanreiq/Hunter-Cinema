@@ -16,6 +16,11 @@ export const DateConverter = (date) => {
     return result;
 }
 
+export const YearConverter = (date) => {
+    var year = date.substring(0, 4);
+    return year;
+}
+
 export const TextVerify = (text) => {
     var textLowerCase = text.toLowerCase();
     var textSplit = textLowerCase.match(/.{1,1}/g);

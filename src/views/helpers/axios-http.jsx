@@ -67,3 +67,18 @@ export const AxiosGetGenders = async () => {
         });
     return ArrayGenders;
 }
+export const AxiosGetActorFilms = async (name) => {
+    var Films = [];
+    await axios({
+        method: 'GET',
+        url: `${API_URL}/films/${name}`
+    })
+        .then(res => {
+            if (!res.data.error) {
+                Films = res.data.films;
+            } else {
+                return res.data.message;
+            }
+        })
+    return Films;
+}
