@@ -30,7 +30,13 @@ class ModalFilm extends Component {
                         <img src={this.props.photo} alt={this.props.film.title} className="w-75 rounded img-modal mb-4" />
                         <p>Fecha de estreno: <span className="text-warning">{DateConverter(this.props.film.releaseDate)}</span></p>
                         <p>Género: <span className="text-warning">{this.props.film.gender}</span></p>
-                        <p><b>Actores que trabajaron en la película</b></p>
+                        <p className="mb-0 mt-1"><b>Actores que trabajaron en la película</b></p>
+                        {this.props.film.actors.map((actor, i) => {
+                            return(
+                                <span key={i} className="mr-1 badge badge-success">{actor}</span>
+                            )
+                        })
+                        }
                     </Modal.Body>
                     <Modal.Footer className="bg-dark">
                         <Button className="btn btn-danger" onClick={this.closeModal}>Cerrar</Button>

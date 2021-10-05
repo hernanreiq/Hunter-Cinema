@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
+import { StringToArray } from "../helpers/functions";
 
 class CreateFilm extends Component {
     state = {
-        photo: ''
+        photo: '',
+        actors: []
     }
 
     titleRef = React.createRef();
     genderRef = React.createRef();
     releaseDateRef = React.createRef();
+    actorsRef = React.createRef();
 
     selectedFile = (e) => {
         this.setState({
@@ -17,13 +20,21 @@ class CreateFilm extends Component {
         });
     }
 
+    actorsToArray = () => {
+        var actorsString = this.actorsRef.current.value;
+        this.setState({
+            actors: StringToArray(actorsString)
+        })
+    }
+
     CreateFilm = (e) => {
         e.preventDefault();
         var title = this.titleRef.current.value;
         var gender = this.genderRef.current.value;
         var releaseDate = this.releaseDateRef.current.value;
+        var actors = this.state.actors;
         var photo = this.state.photo;
-        if (title !== '' || gender !== '' || releaseDate !== '' || photo !== '') {
+        if (title !== '' || gender !== '' || releaseDate !== '' || photo !== '' || actors.length !== 0) {
             axios({
                 method: "POST",
                 url: "http://localhost:3700/api/films/create",
@@ -31,7 +42,8 @@ class CreateFilm extends Component {
                     title: title,
                     gender: gender,
                     releaseDate: releaseDate,
-                    photo: photo
+                    photo: photo,
+                    actors: actors
                 }
             })
                 .then(res => {
@@ -87,6 +99,18 @@ class CreateFilm extends Component {
                                 <div className="form-group">
                                     <label htmlFor="photo">Foto de la película</label>
                                     <input onChange={this.selectedFile} type="file" name="photo" id="photo" className="form-control" accept="image/png, image/jpeg, image/jpg" required />
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label htmlFor="actors">Actores</label>
+                                    <input ref={this.actorsRef} type="text" name="actors" id="actors" className="form-control" required onChange={this.actorsToArray} />
+                                    <small className="form-text text-muted">Cada actor debe estar separado por coma, ejemplo: Tom Holland, Will Smith</small>
+                                    <p className="mt-2 mb-0">Actores que has agregado:</p>
+                                    {this.state.actors.map((actor, i) => {
+                                        return(
+                                            <span key={i} className="badge badge-success mr-1">{actor}</span>
+                                        )
+                                    })
+                                    }
                                 </div>
                             </form>
                         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
-import { DateConverter, TextVerify } from "../helpers/functions";
+import { DateConverter, TextVerify, StringToArray, ArrayToString } from "../helpers/functions";
 
 class UpdateFilm extends Component {
     state = {
@@ -9,13 +9,16 @@ class UpdateFilm extends Component {
         gender: false,
         releaseDate: false,
         photo: false,
+        actorsEdit: false,
         filePhoto: '',
-        resultReleaseDate: ''
+        resultReleaseDate: '',
+        actors: []
     }
 
     titleRef = React.createRef();
     genderRef = React.createRef();
     releaseDateRef = React.createRef();
+    actorsRef = React.createRef();
 
     selectedFile = (e) => {
         this.setState({
@@ -47,6 +50,12 @@ class UpdateFilm extends Component {
         })
     }
 
+    updateActors = () => {
+        this.setState({
+            actorsEdit: true
+        })
+    }
+
     calReleaseDate = () => {
         var releaseDate = DateConverter(this.props.film.releaseDate);
         this.setState({
@@ -69,12 +78,20 @@ class UpdateFilm extends Component {
             title: false,
             gender: false,
             releaseDate: false,
-            photo: false
+            photo: false,
+            actorsEdit: false
         })
     }
 
     backToFinder = () => {
         this.props.backToFinder();
+    }
+
+    actorsToArray = () => {
+        var actorsString = this.actorsRef.current.value;
+        this.setState({
+            actors: StringToArray(actorsString)
+        })
     }
 
     updateFilm = (e) => {
@@ -96,8 +113,13 @@ class UpdateFilm extends Component {
             var genderVerify = TextVerify(gender);
             data.gender = gender;
         }
-        if (this.state.title || this.state.releaseDate || this.state.gender) {
-            if (titleVerify || releaseDateVerify || genderVerify) {
+        if (this.state.actorsEdit) {
+            var actors = this.state.actors;
+            var actorsVerify = true;
+            data.actors = actors;
+        }
+        if (this.state.title || this.state.releaseDate || this.state.gender || this.state.actorsEdit) {
+            if (titleVerify || releaseDateVerify || genderVerify || actorsVerify) {
                 axios({
                     method: "PUT",
                     url: `http://localhost:3700/api/films/update/${idFilm}`,
@@ -201,11 +223,37 @@ class UpdateFilm extends Component {
                                         </React.Fragment>
                                     }
                                 </div>
+                                <div className="form-group">
+                                    {this.state.actorsEdit === true ?
+                                        <React.Fragment>
+                                            <label htmlFor="actors">Actores</label>
+                                            <input ref={this.actorsRef} type="text" name="actors" id="actors" defaultValue={ArrayToString(this.props.film.actors)} className="form-control" required onChange={this.actorsToArray} />
+                                            <small className="form-text text-muted">Cada actor debe estar separado por coma, ejemplo: Tom Holland, Will Smith</small>
+                                            <p className="mt-2 mb-0">Actores que has agregado:</p>
+                                            {this.state.actors.map((actor, i) => {
+                                                return (
+                                                    <span key={i} className="badge badge-success mr-1">{actor}</span>
+                                                )
+                                            })
+                                            }
+                                        </React.Fragment> :
+                                        <React.Fragment>
+                                            <h5 className="mb-0"><span>Actores que trabajaron en la película</span></h5>
+                                            {this.props.film.actors.map((actor, i) => {
+                                                return (
+                                                    <span key={i} className="badge badge-info mr-1">{actor}</span>
+                                                )
+                                            })
+                                            }
+                                            <button className="btn btn-success mb-2 d-block mx-auto mt-3" onClick={this.updateActors} >Editar actores</button>
+                                        </React.Fragment>
+                                    }
+                                </div>
                             </form>
                         </div>
                         <div className="card-footer bg-secondary">
                             <button type="button" className="btn w-100 my-2 btn-dark" onClick={this.backToFinder}>Volver al buscador</button>
-                            {this.state.title || this.state.gender || this.state.releaseDate || this.state.photo ?
+                            {this.state.title || this.state.gender || this.state.releaseDate || this.state.photo || this.state.actorsEdit?
                                 <React.Fragment>
                                     <button onClick={this.resetOptions} className="btn w-100 my-2 btn-dark">Reiniciar el editor</button>
                                     <button type="submit" form="update-actor" className="btn w-100 my-2 btn-success">Actualizar esta película</button>

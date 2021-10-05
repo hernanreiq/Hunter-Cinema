@@ -29,12 +29,12 @@ const FilmController = {
     },
     /* CREACIÓN DE PELÍCULAS, ANTES DE CREARLO COMPRUEBA QUE EL NOMBRE NO ESTÉ REGISTRADO */
     createFilm: async (req, res) => {
-        const { title, releaseDate, gender } = req.body;
+        const { title, releaseDate, gender, actors } = req.body;
         const filmExist = await FilmModel.find({ title: title });
         if (filmExist.length === 0) {
             const newFilm = new FilmModel({
                 title: title,
-                actors: [],
+                actors: actors,
                 releaseDate: releaseDate,
                 gender: gender,
                 photo: null
@@ -56,7 +56,7 @@ const FilmController = {
     },
     /* ACTUALIZAR UNA PELÍCULA, SE COMPRUEBA SI EXISTE ANTES DE ACTUALIZAR */
     updateFilm: (req, res) => {
-        const { title, releaseDate, gender } = req.body;
+        const { title, releaseDate, gender, actors } = req.body;
         console.log(req.body);
         const idFilm = req.params.id;
         FilmModel.findById(idFilm, async (err, film) => {
@@ -64,7 +64,8 @@ const FilmController = {
                 const newDataFilm = {
                     title: title,
                     releaseDate: releaseDate,
-                    gender: gender
+                    gender: gender,
+                    actors: actors
                 };
                 await FilmModel.findByIdAndUpdate(idFilm, newDataFilm);
                 res.json({ message: "Los datos de la película fueron actualizados con éxito!", error: false });

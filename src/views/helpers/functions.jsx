@@ -21,7 +21,7 @@ export const TextVerify = (text) => {
     var textSplit = textLowerCase.match(/.{1,1}/g);
     var textLength = textSplit.length;
     var counter_VowelAndNumber = 0;
-    for (var i = 0; i <= textLength; i++) {
+    for (var i = 0; i < textLength; i++) {
         if (textSplit[i] === 'a' || textSplit[i] === 'b' || textSplit[i] === 'c' || textSplit[i] === 'd' || textSplit[i] === 'e' || textSplit[i] === 'f' ||
             textSplit[i] === 'g' || textSplit[i] === 'h' || textSplit[i] === 'i' || textSplit[i] === 'j' || textSplit[i] === 'k' || textSplit[i] === 'l' ||
             textSplit[i] === 'm' || textSplit[i] === 'n' || textSplit[i] === 'o' || textSplit[i] === 'p' || textSplit[i] === 'q' || textSplit[i] === 'r' ||
@@ -40,4 +40,20 @@ export const TextVerify = (text) => {
     } else {
         return false;
     }
+}
+
+export const StringToArray = (string) => {
+    var actorsArray = string.split(', ');
+    const actors = new Set(actorsArray);
+    var result = [...actors];
+    return result;
+}
+
+export const ArrayToString = (array) => {
+    var string = '';
+    var arrayLength = array.length;
+    for (var i = 0; i < arrayLength; i++){
+        string += array[i] + ', '
+    }
+    return string;
 }

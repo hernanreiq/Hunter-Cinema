@@ -100,6 +100,10 @@ class FilmFinder extends Component {
             showModal: false
         })
     }
+    
+    CloseOptions = () => {
+        this.props.CloseOptions();
+    }
 
     render() {
         return (
