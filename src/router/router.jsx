@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Index from "../views";
 import CRUD from "../views/crud";
 import Navigation from "../views/partials/nav";
+import Error from "../views/error";
 
 class Router extends Component {
     render() {
@@ -16,6 +17,7 @@ class Router extends Component {
                     <Route exact path="/crud" render={() => {
                         return (<CRUD />)
                     }} />
+                    <Route exact path="*" component={Error} />
                 </Switch>
             </BrowserRouter>
         )
