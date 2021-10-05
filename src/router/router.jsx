@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Index from "../views";
 import CRUD from "../views/crud";
-import Nav from "../views/partials/nav";
+import Navigation from "../views/partials/nav";
 
 class Router extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Nav />
+                <Navigation />
                 <Switch>
                     <Route exact path="/" render={() => {
                         return (<Index />)
