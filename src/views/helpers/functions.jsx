@@ -31,7 +31,7 @@ export const TextVerify = (text) => {
             }
         }
     }
-    if (counter_VowelAndNumber > 1) {
+    if (counter_VowelAndNumber >= 1) {
         return true;
     } else {
         return false;
