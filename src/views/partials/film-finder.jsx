@@ -83,6 +83,12 @@ class FilmFinder extends Component {
         })
     }
 
+    updateFilm = (film, photoPath) => {
+        if (this.props.crud) {
+            this.props.UpdateFilm(film, photoPath);
+        }
+    }
+
     deleteFilm = (film, photoPath) => {
         if (this.props.crud) {
             this.props.DeleteFilm(film, photoPath);
@@ -131,6 +137,7 @@ class FilmFinder extends Component {
                                                 key={i}
                                                 film={film}
                                                 viewFilm={this.viewFilm}
+                                                updateFilm={this.updateFilm}
                                                 deleteFilm={this.deleteFilm}
                                             />
                                         )

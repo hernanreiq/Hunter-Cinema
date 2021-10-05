@@ -53,6 +53,27 @@ const FilmController = {
         } else {
             res.json({ message: "Estos son los géneros de las películas guardadas", error: false, genders: allGenders });
         }
+    },
+    /* ACTUALIZAR UNA PELÍCULA, SE COMPRUEBA SI EXISTE ANTES DE ACTUALIZAR */
+    updateFilm: (req, res) => {
+        const { title, releaseDate, gender } = req.body;
+        console.log(req.body);
+        const idFilm = req.params.id;
+        FilmModel.findById(idFilm, async (err, film) => {
+            if (film) {
+                const newDataFilm = {
+                    title: title,
+                    releaseDate: releaseDate,
+                    gender: gender
+                };
+                await FilmModel.findByIdAndUpdate(idFilm, newDataFilm);
+                res.json({ message: "Los datos de la película fueron actualizados con éxito!", error: false });
+            } else if (err) {
+                res.json({ message: "No se puede actualizar una película que no existe", error: true });
+            } else {
+                res.json({ message: "No se puede actualizar una película que no existe", error: true });
+            }
+        });
     }
 }
 

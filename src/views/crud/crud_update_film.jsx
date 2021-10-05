@@ -3,19 +3,19 @@ import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
 import { DateConverter } from "../helpers/functions";
 
-class UpdateActor extends Component {
+class UpdateFilm extends Component {
     state = {
-        name: false,
+        title: false,
         gender: false,
-        dateOfBirth: false,
+        releaseDate: false,
         photo: false,
         filePhoto: '',
-        resultDateOfBirth: ''
+        resultReleaseDate: ''
     }
 
-    nameRef = React.createRef();
+    titleRef = React.createRef();
     genderRef = React.createRef();
-    dateOfBirthRef = React.createRef();
+    releaseDateRef = React.createRef();
 
     selectedFile = (e) => {
         this.setState({
@@ -23,9 +23,9 @@ class UpdateActor extends Component {
         });
     }
 
-    updateName = () => {
+    updateTitle = () => {
         this.setState({
-            name: true
+            title: true
         })
     }
 
@@ -35,9 +35,9 @@ class UpdateActor extends Component {
         })
     }
 
-    updateDateOfBirth = () => {
+    updateReleaseDate = () => {
         this.setState({
-            dateOfBirth: true
+            releaseDate: true
         })
     }
 
@@ -47,28 +47,28 @@ class UpdateActor extends Component {
         })
     }
 
-    calDateOfBirth = () => {
-        var dateOfBirth = DateConverter(this.props.actor.dateOfBirth);
+    calReleaseDate = () => {
+        var releaseDate = DateConverter(this.props.film.releaseDate);
         this.setState({
-            resultDateOfBirth: dateOfBirth
+            resultReleaseDate: releaseDate
         });
     }
 
     componentDidMount() {
-        this.calDateOfBirth();
+        this.calReleaseDate();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.actor.name !== this.props.actor.name) {
-            this.calDateOfBirth();
+        if (prevProps.film.title !== this.props.film.title) {
+            this.calReleaseDate();
         }
     }
 
     resetOptions = () => {
         this.setState({
-            name: false,
+            title: false,
             gender: false,
-            dateOfBirth: false,
+            releaseDate: false,
             photo: false
         })
     }
@@ -77,26 +77,26 @@ class UpdateActor extends Component {
         this.props.backToFinder();
     }
 
-    updateActor = (e) => {
+    updateFilm = (e) => {
         e.preventDefault();
-        var idActor = this.props.actor._id;
+        var idFilm = this.props.film._id;
         var data = {};
-        if (this.state.name) {
-            var name = this.nameRef.current.value;
-            data.name = name;
+        if (this.state.title) {
+            var title = this.titleRef.current.value;
+            data.title = title;
         }
-        if (this.state.dateOfBirth) {
-            var dateOfBirth = this.dateOfBirthRef.current.value;
-            data.dateOfBirth = dateOfBirth;
+        if (this.state.releaseDate) {
+            var releaseDate = this.releaseDateRef.current.value;
+            data.releaseDate = releaseDate;
         }
         if (this.state.gender) {
             var gender = this.genderRef.current.value;
             data.gender = gender;
         }
-        if (this.state.name || this.state.dateOfBirth || this.state.gender) {
+        if (this.state.title || this.state.releaseDate || this.state.gender) {
             axios({
                 method: "PUT",
-                url: `http://localhost:3700/api/actors/update/${idActor}`,
+                url: `http://localhost:3700/api/films/update/${idFilm}`,
                 data: data
             })
                 .then(res => {
@@ -114,14 +114,14 @@ class UpdateActor extends Component {
         if (this.state.photo) {
             const formData = new FormData();
             formData.append('photo', this.state.filePhoto);
-            axios.post(`http://localhost:3700/api/actors/upload-photo/update/${idActor}`, formData)
+            axios.post(`http://localhost:3700/api/films/upload-photo/update/${idFilm}`, formData)
                 .then(res => {
                     if (res.data.error) {
                         SweetModal('info', res.data.message);
                     } else if (!res.data.error) {
                         this.CloseOptions();
-                        if (this.state.name || this.state.dateOfBirth || this.state.gender) {
-                            SweetModal('success', 'La foto y los datos del actor fueron actualizados con éxito!');
+                        if (this.state.title || this.state.releaseDate || this.state.gender) {
+                            SweetModal('success', 'La imagen y los datos de la película fueron actualizados con éxito!');
                         } else {
                             SweetModal('success', res.data.message);
                         }
@@ -141,59 +141,56 @@ class UpdateActor extends Component {
                 <div className="col-md-12 my-2 p-0">
                     <div className="card shadow text-white text-center">
                         <div className="card-header bg-warning">
-                            <h2 className="card-title mb-0 text-center">Actualizar un actor</h2>
+                            <h2 className="card-title mb-0 text-center">Actualizar una película</h2>
                         </div>
                         <div className="card-body bg-dark">
-                            <form id="update-actor" autoComplete="off" onSubmit={this.updateActor} encType="multipart/form-data">
+                            <form id="update-actor" autoComplete="off" onSubmit={this.updateFilm} encType="multipart/form-data">
                                 <div className="form-group mb-4">
-                                    {this.state.name === true ?
+                                    {this.state.title === true ?
                                         <React.Fragment>
-                                            <label htmlFor="name">Nombre completo</label>
-                                            <input ref={this.nameRef} type="text" name="name" id="name" className="form-control" defaultValue={this.props.actor.name} required />
+                                            <label htmlFor="title">Título</label>
+                                            <input ref={this.titleRef} type="text" name="title" id="title" className="form-control" defaultValue={this.props.film.title} required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><span>Nombre completo:</span> {this.props.actor.name}</h5>
-                                            <button className="btn btn-success my-2" onClick={this.updateName} >Editar el nombre</button>
+                                            <h5><span>Título:</span> {this.props.film.title}</h5>
+                                            <button className="btn btn-success my-2" onClick={this.updateTitle} >Editar el título</button>
                                         </React.Fragment>
                                     }
                                 </div>
                                 <div className="form-group mb-4">
                                     {this.state.gender === true ?
                                         <React.Fragment>
-                                            <label htmlFor="gender">Sexo</label>
-                                            <select ref={this.genderRef} name="gender" id="gender" className="form-control" required >
-                                                <option value="Mujer">Mujer</option>
-                                                <option value="Hombre">Hombre</option>
-                                            </select>
+                                            <label htmlFor="gender">Género</label>
+                                            <input ref={this.genderRef} type="text" name="gender" id="gender" className="form-control" defaultValue={this.props.film.gender} required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><span>Sexo:</span> {this.props.actor.gender}</h5>
-                                            <button className="btn btn-success my-2" onClick={this.updateGender} >Editar el sexo</button>
+                                            <h5><span>Género:</span> {this.props.film.gender}</h5>
+                                            <button className="btn btn-success my-2" onClick={this.updateGender} >Editar el género</button>
                                         </React.Fragment>
                                     }
                                 </div>
                                 <div className="form-group">
-                                    {this.state.dateOfBirth === true ?
+                                    {this.state.releaseDate === true ?
                                         <React.Fragment>
-                                            <label htmlFor="dateOfBirth">Fecha de nacimiento</label>
-                                            <input ref={this.dateOfBirthRef} type="date" name="dateOfBirth" id="dateOfBirth" className="form-control" defaultValue={this.props.actor.dateOfBirth} required />
+                                            <label htmlFor="releaseDate">Fecha de estreno</label>
+                                            <input ref={this.releaseDateRef} type="date" name="releaseDate" id="releaseDate" className="form-control" defaultValue={this.props.film.releaseDate} required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><span>Fecha de nacimiento:</span> {this.state.resultDateOfBirth}</h5>
-                                            <button className="btn btn-success my-2" onClick={this.updateDateOfBirth} >Editar fecha de nacimiento</button>
+                                            <h5><span>Fecha de estreno:</span> {this.state.resultReleaseDate}</h5>
+                                            <button className="btn btn-success my-2" onClick={this.updateReleaseDate} >Editar fecha de estreno</button>
                                         </React.Fragment>
                                     }
                                 </div>
                                 <div className="form-group">
                                     {this.state.photo === true ?
                                         <React.Fragment>
-                                            <label htmlFor="photo">Foto del actor</label>
+                                            <label htmlFor="photo">Imagen de la película</label>
                                             <input onChange={this.selectedFile} type="file" name="photo" id="photo" className="form-control" accept="image/png, image/jpeg, image/jpg" required />
                                         </React.Fragment> :
                                         <React.Fragment>
-                                            <h5><span>Foto del actor</span></h5>
-                                            <img src={this.props.photoPath} alt={this.props.actor.name} className="img-card mx-auto mb-2 rounded d-block" />
-                                            <button className="btn btn-success my-2" onClick={this.updatePhoto} >Cambiar la foto</button>
+                                            <h5><span>Imagen de la película</span></h5>
+                                            <img src={this.props.photoPath} alt={this.props.film.title} className="img-card mx-auto mb-2 rounded d-block" />
+                                            <button className="btn btn-success my-2" onClick={this.updatePhoto} >Cambiar imagen</button>
                                         </React.Fragment>
                                     }
                                 </div>
@@ -201,10 +198,10 @@ class UpdateActor extends Component {
                         </div>
                         <div className="card-footer bg-secondary">
                             <button type="button" className="btn w-100 my-2 btn-dark" onClick={this.backToFinder}>Volver al buscador</button>
-                            {this.state.name || this.state.gender || this.state.dateOfBirth || this.state.photo ?
+                            {this.state.title || this.state.gender || this.state.releaseDate || this.state.photo ?
                                 <React.Fragment>
                                     <button onClick={this.resetOptions} className="btn w-100 my-2 btn-dark">Reiniciar el editor</button>
-                                    <button type="submit" form="update-actor" className="btn w-100 my-2 btn-success">Actualizar este actor</button>
+                                    <button type="submit" form="update-actor" className="btn w-100 my-2 btn-success">Actualizar esta película</button>
                                 </React.Fragment> : ''
                             }
                         </div>
@@ -215,4 +212,4 @@ class UpdateActor extends Component {
     }
 }
 
-export default UpdateActor;
+export default UpdateFilm;
