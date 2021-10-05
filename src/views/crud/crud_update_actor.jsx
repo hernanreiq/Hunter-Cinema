@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { SweetModal } from "../helpers/sweetalert2";
-import { DateConverter } from "../helpers/functions";
+import { DateConverter, TextVerify } from "../helpers/functions";
 
 class UpdateActor extends Component {
     state = {
@@ -83,32 +83,39 @@ class UpdateActor extends Component {
         var data = {};
         if (this.state.name) {
             var name = this.nameRef.current.value;
+            var nameVerify = TextVerify(name);
             data.name = name;
         }
         if (this.state.dateOfBirth) {
             var dateOfBirth = this.dateOfBirthRef.current.value;
+            var dateOfBirthVerify = TextVerify(dateOfBirth);
             data.dateOfBirth = dateOfBirth;
         }
         if (this.state.gender) {
             var gender = this.genderRef.current.value;
+            var genderVerify = TextVerify(gender);
             data.gender = gender;
         }
         if (this.state.name || this.state.dateOfBirth || this.state.gender) {
-            axios({
-                method: "PUT",
-                url: `http://localhost:3700/api/actors/update/${idActor}`,
-                data: data
-            })
-                .then(res => {
-                    if (res.data.error) {
-                        SweetModal('error', res.data.message);
-                    } else if (!res.data.error) {
-                        this.CloseOptions();
-                        if (!this.state.photo) {
-                            SweetModal('success', res.data.message);
-                        }
-                    }
+            if (nameVerify || dateOfBirthVerify || genderVerify) {
+                axios({
+                    method: "PUT",
+                    url: `http://localhost:3700/api/actors/update/${idActor}`,
+                    data: data
                 })
+                    .then(res => {
+                        if (res.data.error) {
+                            SweetModal('error', res.data.message);
+                        } else if (!res.data.error) {
+                            this.CloseOptions();
+                            if (!this.state.photo) {
+                                SweetModal('success', res.data.message);
+                            }
+                        }
+                    })
+            } else {
+                SweetModal('info', 'No puedes hacer esto');
+            }
         }
 
         if (this.state.photo) {
