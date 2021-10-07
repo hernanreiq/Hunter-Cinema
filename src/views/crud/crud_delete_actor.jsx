@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { AxiosDeleteActorsFilms } from "../helpers/axios-http";
+import { AxiosDeleteActorsFilms, AxiosDeleteNameActorFilms } from "../helpers/axios-http";
 
 class DeleteActor extends Component {
 
     deleteActor = () => {
-        AxiosDeleteActorsFilms(this.props.actor._id, this.props.actor.photo, 'actors');
+        AxiosDeleteNameActorFilms(this.props.actor.name)
+        .then(res => {
+            AxiosDeleteActorsFilms(this.props.actor._id, this.props.actor.photo, 'actors');
+        })
         this.props.CloseOptions();
     }
 

@@ -96,5 +96,16 @@ export const AxiosChangeNameActorFilms = async (oldName, newName) => {
         .then(res => {
             result = res.data;
         })
-        return result;
-    }
+    return result;
+}
+export const AxiosDeleteNameActorFilms = async (name) => {
+    var result = {}
+    await axios({
+        method: 'PUT',
+        url: `${API_URL}/films/actor/${name}`
+    })
+    .then(res => {
+        result = res.data;
+    })
+    return result;
+}

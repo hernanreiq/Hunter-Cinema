@@ -110,6 +110,18 @@ const FilmController = {
                 res.json({ message: "Este actor no tiene películas", error: false })
             }
         });
+    },
+    deleteActorFilms: async (req, res) => {
+        const name = req.params.name;
+        await FilmModel.updateMany({ actors: { $all: [name] } }, { $pull: { actors: name } }, (err, films) => {
+            if (err) {
+                res.json({ message: "Hubo un error al eliminar el nombre del actor en las películas", error: true });
+            } else if (films) {
+                res.json({message: "Nombre del actor borrado en todas las películas", error: false});
+            } else {
+                res.json({ message: "Este actor no tiene películas", error: false })
+            }
+        })
     }
 }
 
