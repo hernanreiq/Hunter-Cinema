@@ -84,11 +84,32 @@ const FilmController = {
             if (err) {
                 res.json({ message: "Hubo un error en la consulta", error: true });
             } else if (films) {
-                res.json({message: "Películas del actor buscadas con éxito!", error: false, films: films});
+                res.json({ message: "Películas del actor buscadas con éxito!", error: false, films: films });
             } else {
                 res.json({ message: "Este actor no tiene películas", error: false });
             }
-        }).sort({releaseDate: -1})
+        }).sort({ releaseDate: -1 })
+    },
+    changeNameActor: async (req, res) => {
+        const { oldName, newName } = req.params;
+        console.log(req.params);
+        await FilmModel.updateMany({ actors: { $all: [oldName] } }, { $push: { actors: newName } }, async (err, films) => {
+            if (err) {
+                res.json({ message: "Hubo un error al agregar el nuevo nombre del actor en las películas", error: true });
+            } else if (films) {
+                await FilmModel.updateMany({ actors: { $all: [oldName] } }, { $pull: { actors: oldName } }, (err, films) => {
+                    if (err) {
+                        res.json({ message: "Hubo un error al eliminar el viejo nombre del actor en las películas", error: true });
+                    } else if (films) {
+                        res.json({message: "Nuevo nombre del actor fue agregado con éxito!", error: false});
+                    } else {
+                        res.json({ message: "Este actor no tiene películas", error: false })
+                    }
+                })
+            } else {
+                res.json({ message: "Este actor no tiene películas", error: false })
+            }
+        });
     }
 }
 

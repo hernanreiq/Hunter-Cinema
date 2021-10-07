@@ -17,6 +17,7 @@ var photosFilmsRoute = multipart({ uploadDir: './backend/public/img/films' });
 route.get('/api/actors/updated', ActorController.updatedActors);
 
 /* HTTP - PUT (ACTUALIZAR) */
+route.put('/api/films/actor/:oldName/:newName', FilmController.changeNameActor);
 route.put('/api/films/update/:id', FilmController.updateFilm);
 route.put('/api/actors/update/:id', ActorController.updateActor);
 
