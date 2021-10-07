@@ -54,6 +54,7 @@ export const AxiosGetImage = async (fileName, owner) => {
 }
 export const AxiosGetGenders = async () => {
     var ArrayGenders = [];
+    var result = {};
     await axios({
         method: 'GET',
         url: `${API_URL}/films/genders`
@@ -62,25 +63,29 @@ export const AxiosGetGenders = async () => {
             if (!res.data.error) {
                 ArrayGenders = res.data.genders;
             } else {
-                return res.data.message;
+                result = res.data;
             }
         });
-    return ArrayGenders;
+    if (ArrayGenders) {
+        return ArrayGenders;
+    } else {
+        return result;
+    }
 }
 export const AxiosGetActorFilms = async (name) => {
-    var Films = [];
+    var result = [];
     await axios({
         method: 'GET',
         url: `${API_URL}/films/${name}`
     })
         .then(res => {
             if (!res.data.error) {
-                Films = res.data.films;
+                result = res.data.films;
             } else {
-                return res.data.message;
+                result = res.data;
             }
         })
-    return Films;
+    return result;
 }
 export const AxiosChangeNameActorFilms = async (oldName, newName) => {
     var result = {};
