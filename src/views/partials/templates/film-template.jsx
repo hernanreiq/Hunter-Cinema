@@ -22,9 +22,12 @@ class FilmTemplate extends Component {
     componentDidMount() {
         this.getImage();
     }
-
+    
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.film.title !== this.props.film.title) {
+            this.getImage();
+        }
+        if (prevState.photoPath !== this.state.photoPath) {
             this.getImage();
         }
     }

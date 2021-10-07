@@ -6,7 +6,10 @@ const FilmController = {
         const { gender, title } = req.params;
         if (gender === 'Todas') {
             const films = await FilmModel.find({
-                title: { $regex: '.*' + title + '.*', $options: 'i' }
+                $or: [
+                    { title: { $regex: '.*' + title + '.*', $options: 'i' } },
+                    { actors: { $regex: '.*' + title + '.*', $options: "i" } }
+                ]
             }).limit(4);
             if (films.length === 0) {
                 res.json({ message: "No hay resultados de su búsqueda", error: true });
@@ -101,7 +104,7 @@ const FilmController = {
                     if (err) {
                         res.json({ message: "Hubo un error al eliminar el viejo nombre del actor en las películas", error: true });
                     } else if (films) {
-                        res.json({message: "Nuevo nombre del actor fue agregado con éxito!", error: false});
+                        res.json({ message: "Nuevo nombre del actor fue agregado con éxito!", error: false });
                     } else {
                         res.json({ message: "Este actor no tiene películas", error: false })
                     }
@@ -117,7 +120,7 @@ const FilmController = {
             if (err) {
                 res.json({ message: "Hubo un error al eliminar el nombre del actor en las películas", error: true });
             } else if (films) {
-                res.json({message: "Nombre del actor borrado en todas las películas", error: false});
+                res.json({ message: "Nombre del actor borrado en todas las películas", error: false });
             } else {
                 res.json({ message: "Este actor no tiene películas", error: false })
             }
