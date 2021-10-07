@@ -61,7 +61,7 @@ class CRUD extends Component {
                             {this.state.filmCRUD === false && this.state.actorCRUD === false &&
                                 <div className="col-md-6 my-2">
                                     <div className="card shadow">
-                                        <div className="card-header bg-crud-3 text-white text-center">
+                                        <div className="card-header bg-crud-2 text-white text-center">
                                             <h2 className="card-title mb-0">CRUD para películas</h2>
                                         </div>
                                         <div className="card-footer bg-secondary">

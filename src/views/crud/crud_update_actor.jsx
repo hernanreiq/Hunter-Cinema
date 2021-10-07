@@ -162,7 +162,7 @@ render() {
             <div className="col-md-12 my-2 p-0">
                 <div className="card shadow text-white text-center">
                     <div className="card-header bg-warning">
-                        <h2 className="card-title mb-0 text-center">Actualizar un actor</h2>
+                        <h2 className="card-title mb-0 text-center">Actualizar actor</h2>
                     </div>
                     <div className="card-body bg-dark">
                         <form id="update-actor" autoComplete="off" onSubmit={this.updateActor} encType="multipart/form-data">

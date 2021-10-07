@@ -170,7 +170,7 @@ class UpdateFilm extends Component {
                 <div className="col-md-12 my-2 p-0">
                     <div className="card shadow text-white text-center">
                         <div className="card-header bg-warning">
-                            <h2 className="card-title mb-0 text-center">Actualizar una película</h2>
+                            <h2 className="card-title mb-0 text-center">Actualizar película</h2>
                         </div>
                         <div className="card-body bg-dark">
                             <form id="update-actor" autoComplete="off" onSubmit={this.updateFilm} encType="multipart/form-data">
