@@ -82,3 +82,12 @@ export const AxiosGetActorFilms = async (name) => {
         })
     return Films;
 }
+export const AxiosChangeNameActorFilms = async (oldName, newName) => {
+    await axios({
+        method: 'PUT',
+        url: `${API_URL}/films/actor/${oldName}/${newName}`
+    })
+        .then(res => {
+            return res.data;
+        })
+}

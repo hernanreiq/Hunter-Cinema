@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { AxiosChangeNameActorFilms } from "../helpers/axios-http";
 import { SweetModal } from "../helpers/sweetalert2";
 import { DateConverter, TextVerify } from "../helpers/functions";
 
@@ -98,6 +99,12 @@ class UpdateActor extends Component {
         }
         if (this.state.name || this.state.dateOfBirth || this.state.gender) {
             if (nameVerify || dateOfBirthVerify || genderVerify) {
+                if (this.state.name) {
+                    var changeNameActor = AxiosChangeNameActorFilms(this.props.actor.name, data.name)
+                        .then(res => {
+                            console.log("It's ok");
+                        })
+                }
                 axios({
                     method: "PUT",
                     url: `http://localhost:3700/api/actors/update/${idActor}`,
